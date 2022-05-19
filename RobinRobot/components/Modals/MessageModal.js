@@ -1,14 +1,15 @@
-import React from "react";
-import { Modal } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+/* eslint-disable react/prop-types */
+import React from 'react'
+import { Modal } from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 // styled components
-import styled from "styled-components/native";
-import { colors } from "../colors";
-const { primary, black, success, fail, tertiary } = colors;
-import BigText from "../Texts/BigText";
-import RegularText from "../Texts/RegularText";
-import RegularButton from "../Buttons/RegularButton";
+import styled from 'styled-components/native'
+import { colors } from '../colors'
+import BigText from '../Texts/BigText'
+import RegularText from '../Texts/RegularText'
+import RegularButton from '../Buttons/RegularButton'
+const { primary, black, success, fail, tertiary } = colors
 
 const ModalPressableContainer = styled.Pressable`
     flex: 1;
@@ -16,7 +17,7 @@ const ModalPressableContainer = styled.Pressable`
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
-`;
+`
 
 const ModalView = styled.View`
     background-color: ${primary};
@@ -29,23 +30,23 @@ const ModalView = styled.View`
     shadow-offset: 0px 2px;
     shadow-opacity: 0.25;
     shadow-radius: 4px;
-`;
+`
 
-const MessageModal = ({buttonHandler, type, headerText, message, buttonText, modalVisible}) => {
-    return <Modal animationType="slide" visible={modalVisible} transparent={true}>
+const MessageModal = ({ buttonHandler, type, headerText, message, buttonText, modalVisible }) => {
+  return <Modal animationType="slide" visible={modalVisible} transparent={true}>
         <ModalPressableContainer onPress={buttonHandler}>
             <ModalView>
-                <MaterialCommunityIcons 
-                    name={type === "success" ? "check-circle" : "close-circle"} 
-                    size={100} 
-                    color={type === "success" ? success : fail}
+                <MaterialCommunityIcons
+                    name={type === 'success' ? 'check-circle' : 'close-circle'}
+                    size={100}
+                    color={type === 'success' ? success : fail}
                 />
-                <BigText style={{fontSize: 25, color: tertiary, marginVertical: 10}}>{headerText}</BigText>
-                <RegularText style={{marginBottom: 20}}>{message}</RegularText>
-                <RegularButton onPress={buttonHandler}>{buttonText || `Fullfør`}</RegularButton>
+                <BigText style={{ fontSize: 25, color: tertiary, marginVertical: 10 }}>{headerText}</BigText>
+                <RegularText style={{ marginBottom: 20 }}>{message}</RegularText>
+                <RegularButton onPress={buttonHandler}>{buttonText || 'Fullfør'}</RegularButton>
             </ModalView>
         </ModalPressableContainer>
     </Modal>
-};
+}
 
-export default MessageModal;
+export default MessageModal

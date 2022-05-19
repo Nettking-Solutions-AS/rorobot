@@ -11,15 +11,14 @@ import RegularText from '../components/Texts/RegularText'
 import StyledTextInput from '../components/Inputs/StyledTextInput'
 import MsgBox from '../components/Texts/MsgBox'
 import RegularButton from '../components/Buttons/RegularButton'
-import PressableText from '../components/Texts/PressableText'
-import RowContainer from '../components/Containers/RowContainer'
+import IconHeader from '../components/Icons/IconHeader'
 const { primary } = colors
 
-const Login = () => {
+const ForgotPassword = () => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
 
-  const handleLogin = async (credentials, setSubmitting) => {
+  const handleOnSubmit = async (credentials, setSubmitting) => {
     try {
       setMessage(null)
 
@@ -29,23 +28,24 @@ const Login = () => {
 
       setSubmitting(false)
     } catch (error) {
-      setMessage('Innlogging feilet: ' + error.message)
+      setMessage('Forespørsel feilet: ' + error.message)
       setSubmitting(false)
     }
   }
 
   return <MainContainer>
         <KeyboardAvoidingContainer>
-            <RegularText style={{ marginBottom: 25 }}>skriv inn kontolegitimasjonen din</RegularText>
+            <IconHeader name='key' style={{marginBottom: 30 }} />
+            <RegularText style={{ marginBottom: 25 }}>Skriv inn detaljene under for å starte prosessen</RegularText>
 
             <Formik
-                initialValues={{ email: '', password: '' }}
+                initialValues={{ email: ''}}
                 onSubmit={(values, setSubmitting) => {
-                  if (values.email === '' || values.password === '') {
+                  if (values.email === '') {
                     setMessage('Vennligst fyll inn alle feltene')
                     setSubmitting(false)
                   } else {
-                    handleLogin(values, setSubmitting)
+                    handleOnSubmit(values, setSubmitting)
                   }
                 }}
             >
@@ -62,30 +62,14 @@ const Login = () => {
                             style={{ marginBottom: 25 }}
                         />
 
-                        <StyledTextInput
-                            label="Passord"
-                            icon="lock-open"
-                            placeholder="* * * * * * * *"
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            value={values.password}
-                            isPassword={true}
-                            style={{ marginBottom: 25 }}
-                        />
-
                         <MsgBox style={{ marginBottom: 25 }} success={isSuccessMessage}>{ message || ' '}</MsgBox>
 
-                        {!isSubmitting && <RegularButton onPress={handleSubmit}>Login</RegularButton>}
+                        {!isSubmitting && <RegularButton onPress={handleSubmit}>Send inn</RegularButton>}
                         {isSubmitting && (
                             <RegularButton disabled={true}>
                                 <ActivityIndicator size="small" color={primary} />
                             </RegularButton>
                         )}
-
-                        <RowContainer>
-                            <PressableText onPress={() => {}}>Opprett ny konto</PressableText>
-                            <PressableText onPress={() => {}}>Glemt passord</PressableText>
-                        </RowContainer>
                     </>
                 )}
             </Formik>
@@ -93,4 +77,4 @@ const Login = () => {
     </MainContainer>
 }
 
-export default Login
+export default ForgotPassword
