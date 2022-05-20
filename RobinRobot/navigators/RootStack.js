@@ -15,8 +15,9 @@ import EmailVerification from '../screens/EmailVerification'
 import ForgotPassword from '../screens/ForgotPassword'
 import ResetPassword from '../screens/ResetPassword'
 import Dashboard from '../screens/Dashboard'
+import Avatar from '../components/Buttons/Avatar'
 
-const { accent, secondary } = colors
+const { accent, secondary, darkGray } = colors
 
 const Stack = createStackNavigator()
 
@@ -41,37 +42,65 @@ const RootStack = () => {
                 paddingRight: 25
               }
             }}
-            initialRouteName='Login'
+            initialRouteName='Dashboard'
         >
             <Stack.Screen
                 name='Login'
                 component={Login}
-                options={{ headerTitle: 'Logg Inn', headerTitleAlign: 'left' }}
+                options={{
+                  headerTitle: 'Logg Inn',
+                  headerTitleAlign: 'left'
+                }}
             />
             <Stack.Screen
                 name='Signup'
                 component={Signup}
-                options={{ headerTitle: 'Registrer Deg', headerTitleAlign: 'left' }}
+                options={{
+                  headerTitle: 'Registrer Deg',
+                  headerTitleAlign: 'left'
+                }}
             />
             <Stack.Screen
                 name='EmailVerification'
                 component={EmailVerification}
-                options={{ headerTitle: 'Bekreft E-post', headerTitleAlign: 'left' }}
+                options={{
+                  headerTitle: 'Bekreft E-post',
+                  headerTitleAlign: 'left'
+                }}
             />
             <Stack.Screen
                 name='ForgotPassword'
                 component={ForgotPassword}
-                options={{ headerTitle: 'Glemt Passord', headerTitleAlign: 'left' }}
+                options={{
+                  headerTitle: 'Glemt Passord',
+                  headerTitleAlign: 'left'
+                }}
             />
             <Stack.Screen
                 name='ResetPassword'
                 component={ResetPassword}
-                options={{ headerTitle: 'Tilbakestill Passord', headerTitleAlign: 'left' }}
+                options={{
+                  headerTitle: 'Tilbakestill Passord',
+                  headerTitleAlign: 'left'
+                }}
             />
             <Stack.Screen
                 name='Dashboard'
                 component={Dashboard}
-                options={{ headerTitle: 'Dashbord', headerTitleAlign: 'left' }}
+                options={{
+                  headerTitle: 'Dashbord',
+                  headerTitleAlign: 'left',
+                  headerStyle: {
+                    height: 100,
+                    backgroundColor: darkGray,
+                    borderBottomWidth: 0,
+                    shadowColor: 'transparent',
+                    shadowOpacity: 0,
+                    elevation: 0
+                  },
+                  headerRight: () => <Avatar />
+
+                }}
             />
         </Stack.Navigator>
     </NavigationContainer>
