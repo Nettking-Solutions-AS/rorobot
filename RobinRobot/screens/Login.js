@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { ActivityIndicator } from 'react-native'
@@ -15,9 +16,13 @@ import PressableText from '../components/Texts/PressableText'
 import RowContainer from '../components/Containers/RowContainer'
 const { primary } = colors
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
+
+  const moveTo = (screen, payload) => {
+    navigation.navigate(screen, { ...payload })
+  }
 
   const handleLogin = async (credentials, setSubmitting) => {
     try {
@@ -26,7 +31,7 @@ const Login = () => {
       // call backendered
 
       // move to next page
-
+      moveTo('Dashboard')
       setSubmitting(false)
     } catch (error) {
       setMessage('Innlogging feilet: ' + error.message)
@@ -83,8 +88,8 @@ const Login = () => {
                         )}
 
                         <RowContainer>
-                            <PressableText onPress={() => {}}>Opprett ny konto</PressableText>
-                            <PressableText onPress={() => {}}>Glemt passord</PressableText>
+                            <PressableText onPress={() => { moveTo('Signup') }}>Opprett ny konto</PressableText>
+                            <PressableText onPress={() => { moveTo('ForgotPassword') }}>Glemt passord</PressableText>
                         </RowContainer>
                     </>
                 )}

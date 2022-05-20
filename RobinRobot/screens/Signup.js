@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { ActivityIndicator } from 'react-native'
@@ -13,9 +14,13 @@ import { colors } from '../components/colors'
 import PressableText from '../components/Texts/PressableText'
 const { primary } = colors
 
-const Signup = () => {
+const Signup = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
+
+  const moveTo = (screen, payload) => {
+    navigation.navigate(screen, { ...payload })
+  }
 
   const handleSignup = async (credentials, setSubmitting) => {
     try {
@@ -24,7 +29,7 @@ const Signup = () => {
       // call backendered
 
       // move to next page
-
+      moveTo('EmailVerification')
       setSubmitting(false)
     } catch (error) {
       setMessage('Registrering feilet: ' + error.message)
@@ -104,7 +109,7 @@ const Signup = () => {
                             </RegularButton>
                         )}
 
-                        <PressableText style={{ paddingVertical: 15 }} onPress={() => {}}>
+                        <PressableText style={{ paddingVertical: 15 }} onPress={() => { moveTo('Login') }}>
                             Logg inn på en eksisterende bruker
                         </PressableText>
                     </>

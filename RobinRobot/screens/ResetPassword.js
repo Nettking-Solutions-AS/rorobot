@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { ActivityIndicator } from 'react-native'
@@ -23,7 +24,7 @@ const FormWrapper = styled.View`
     }}
 `
 
-const ResetPassword = () => {
+const ResetPassword = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
 
@@ -44,9 +45,14 @@ const ResetPassword = () => {
   const [modalMessage, setModalMessage] = useState('')
   const [buttonText, setButtonText] = useState('')
 
+  const moveTo = (screen, payload) => {
+    navigation.navigate(screen, { ...payload })
+  }
+
   const buttonHandler = () => {
     if (modalMessageType === 'success') {
       // do something - dashboard
+      moveTo('Login')
     }
 
     setModalVisible(false)

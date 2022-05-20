@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { ActivityIndicator } from 'react-native'
 
@@ -14,7 +15,7 @@ import ResendTimer from '../components/Timers/ResendTimer'
 import MessageModal from '../components/Modals/MessageModal'
 const { primary, secondary, lightGray } = colors
 
-const EmailVerification = () => {
+const EmailVerification = ({ navigation }) => {
   // code input
   const MAX_CODE_LENGTH = 4
   const [code, setCode] = useState('')
@@ -34,9 +35,14 @@ const EmailVerification = () => {
   const [modalMessage, setModalMessage] = useState('')
   const [buttonText, setButtonText] = useState('')
 
+  const moveTo = (screen, payload) => {
+    navigation.navigate(screen, { ...payload })
+  }
+
   const buttonHandler = () => {
     if (modalMessageType === 'success') {
       // do something - dashboard
+      moveTo('Dashboard')
     }
 
     setModalVisible(false)

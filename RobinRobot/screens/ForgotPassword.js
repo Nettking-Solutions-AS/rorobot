@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { ActivityIndicator } from 'react-native'
@@ -14,9 +15,13 @@ import RegularButton from '../components/Buttons/RegularButton'
 import IconHeader from '../components/Icons/IconHeader'
 const { primary } = colors
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
+
+  const moveTo = (screen, payload) => {
+    navigation.navigate(screen, { ...payload })
+  }
 
   const handleOnSubmit = async (credentials, setSubmitting) => {
     try {
@@ -25,7 +30,7 @@ const ForgotPassword = () => {
       // call backendered
 
       // move to next page
-
+      moveTo('ResetPassword')
       setSubmitting(false)
     } catch (error) {
       setMessage('Forespørsel feilet: ' + error.message)
