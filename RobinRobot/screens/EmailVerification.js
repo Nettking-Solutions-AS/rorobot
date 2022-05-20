@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ActivityIndicator } from 'react-native'
 
-import { colors } from '../components//colors'
+import { colors } from '../components/colors'
 
 // custom components
 import MainContainer from '../components/Containers/MainContainer'

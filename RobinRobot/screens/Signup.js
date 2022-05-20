@@ -9,7 +9,7 @@ import RegularText from '../components/Texts/RegularText'
 import StyledTextInput from '../components/Inputs/StyledTextInput'
 import MsgBox from '../components/Texts/MsgBox'
 import RegularButton from '../components/Buttons/RegularButton'
-import { colors } from '../components//colors'
+import { colors } from '../components/colors'
 import PressableText from '../components/Texts/PressableText'
 const { primary } = colors
 
