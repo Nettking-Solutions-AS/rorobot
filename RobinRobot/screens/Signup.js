@@ -12,6 +12,7 @@ import MsgBox from '../components/Texts/MsgBox'
 import RegularButton from '../components/Buttons/RegularButton'
 import { colors } from '../components/colors'
 import PressableText from '../components/Texts/PressableText'
+import firebase from '../firebase/Config'
 const { primary } = colors
 
 const Signup = ({ navigation }) => {
@@ -25,7 +26,19 @@ const Signup = ({ navigation }) => {
   const handleSignup = async (credentials, setSubmitting) => {
     try {
       setMessage(null)
-
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(credentials.email, credentials.password)
+        .then((response) => {
+          if (!response.user) {
+            setMessage('Brukeren er ikke definert')
+          }
+          const { uid } = response.user
+          const data = {
+            id: uid
+            // TODO
+          }
+        })
       // call backendered
 
       // move to next page
@@ -43,16 +56,17 @@ const Signup = ({ navigation }) => {
 
             <Formik
                 initialValues={{ email: '', fullName: '', password: '', confirmPassword: '' }}
-                onSubmit={(values, setSubmitting) => {
-                  if (values.email === '' || values.fullName === '' || values.password === '' || values.confirmPassword === '') {
+                validate={values => {
+                  if (!values.email || !values.fullName || !values.password || !values.confirmPassword) {
                     setMessage('Vennligst fyll inn alle feltene')
-                    setSubmitting(false)
-                  } else if (values.password !== values.confirmPassword) {
-                    setMessage('Passordene er ikke like')
-                    setSubmitting(false)
-                  } else {
-                    handleSignup(values, setSubmitting)
+                  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                    setMessage('Ugyldig e-post')
+                  } else if (values.password.length < 6 || values.confirmPassword.length < 6) {
+                    setMessage('Passordet må være lengre enn 6 bokstaver!')
                   }
+                }}
+                onSubmit={(values, setSubmitting) => {
+                  handleSignup(values, setSubmitting)
                 }}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (

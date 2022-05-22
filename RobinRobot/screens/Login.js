@@ -14,32 +14,61 @@ import MsgBox from '../components/Texts/MsgBox'
 import RegularButton from '../components/Buttons/RegularButton'
 import PressableText from '../components/Texts/PressableText'
 import RowContainer from '../components/Containers/RowContainer'
+import firebase from '../firebase/Config'
+import { validateEmail, validatePassword } from '../lib/Validation'
+import { Error } from '../lib/Types'
 const { primary } = colors
 
 const Login = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<Error[]>([]);
 
   const moveTo = (screen, payload) => {
     navigation.navigate(screen, { ...payload })
   }
 
   const handleLogin = async (credentials, setSubmitting) => {
-    try {
-      setMessage(null)
+    const validationErrors = [
+      ...validateEmail(email),
+      ...validatePassword(password),
+    ];
 
-      // call backendered
+    setErrors(validationErrors);
 
-      // move to next page
-      moveTo('Dashboard')
-      setSubmitting(false)
-    } catch (error) {
-      setMessage('Innlogging feilet: ' + error.message)
-      setSubmitting(false)
+    // call backend
+    if (validationErrors.length === 0) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((response) => {
+          const userRef = firebase.firestore().collection('users');
+          userRef
+            .doc(response.user?.uid)
+            .get()
+            .then((firestoreDocument) => {
+              if (!firestoreDocument.exists) {
+                setMessage('Brukeren eksisterer ikke!');
+                return;
+              }
+              const user = firestoreDocument.data();
+              // move to next page
+              moveTo('Dashboard')
+            })
+            .catch((error) => {
+              setMessage('Innlogging feilet ' + error.message)
+            });
+        })
+        .catch((error) => {
+          setMessage('Innlogging feilet ' + error.message)
+        });
     }
-  }
+  };
 
-  return <MainContainer>
+  return (
+    <MainContainer>
         <KeyboardAvoidingContainer>
             <RegularText style={{ marginBottom: 25 }}>skriv inn kontolegitimasjonen din</RegularText>
 
@@ -96,6 +125,7 @@ const Login = ({ navigation }) => {
             </Formik>
         </KeyboardAvoidingContainer>
     </MainContainer>
+  )
 }
 
 export default Login

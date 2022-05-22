@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import firebase from '../firebase/Config'
+import { useGlobalState } from '../StateManagement/GlobalState'
 
 import ProfileModal from '../Modals/ProfileModal'
 
@@ -21,21 +23,37 @@ const StyledView = styled.TouchableOpacity`
     border-color: ${secondary};
 `
 
-const Avatar = (props) => {
+const Avatar = (props, navigation) => {
   // modal
   const [modalVisible, setModalVisible] = useState(false)
   const [headerText, setHeaderText] = useState('')
   const [loggingOut, setLoggingOut] = useState(false)
 
+  const moveTo = (screen, payload) => {
+    navigation.navigate(screen, { ...payload })
+  }
+
+  const { state, dispatch } = useGlobalState()
+
   const onLogout = async () => {
     setLoggingOut(true)
 
     // clear user credentials
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: 'SET_CURRENT_USER', payload: null })
+      })
+      .catch((error) => {
+        alert(error)
+      })
 
     setLoggingOut(false)
     setModalVisible(false)
 
     // move to Login
+    moveTo('Login')
   }
 
   const showProfileModal = (user) => {
@@ -48,7 +66,7 @@ const Avatar = (props) => {
   }
 
   const onAvatarPress = () => {
-    showProfileModal('Aleksander')
+    showProfileModal(state.currentUser?.name)
   }
 
   return (
