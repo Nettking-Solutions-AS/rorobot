@@ -18,36 +18,59 @@ const { primary } = colors
 const Signup = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState('')
 
   const moveTo = (screen, payload) => {
     navigation.navigate(screen, { ...payload })
   }
 
-  const handleSignup = async (credentials, setSubmitting) => {
-    try {
-      setMessage(null)
+  const hasValid = values => {
+    const { email, password } = values
+    if (!email) {
+      setMessage('E-post er påkrevd!')
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      setMessage('Ugyldig e-post')
+    }
+    if (!password) {
+      setMessage('Passord er påkrevd!')
+    } else if (/^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*)$/i.test(password)) {
+      setMessage('Passordet må ha minst 8 tegn, en bokstav og ett tall')
+    }
+  }
+
+  const handleSignup = async (email, password) => {
+    console.log(email, password)
+    if (setMessage.length === 0) {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(credentials.email, credentials.password)
+        .createUserWithEmailAndPassword(email, password)
         .then((response) => {
           if (!response.user) {
             setMessage('Brukeren er ikke definert')
           }
           const { uid } = response.user
           const data = {
-            id: uid
-            // TODO
+            id: uid,
+            email,
+            fullName,
+            role: 'customer'
           }
+          const usersRef = firebase.firestore().collection('users')
+          usersRef
+            .doc(uid)
+            .set(data)
+            .catch((error) => {
+              setMessage('Feilet: ' + error.message)
+            })
         })
-      // call backendered
-
-      // move to next page
-      moveTo('EmailVerification')
-      setSubmitting(false)
-    } catch (error) {
-      setMessage('Registrering feilet: ' + error.message)
-      setSubmitting(false)
+        .catch((error) => {
+          setMessage('Feilet: ' + error.message)
+        })
     }
+
+    moveTo('Dashboard')
   }
 
   return <MainContainer>
@@ -56,17 +79,12 @@ const Signup = ({ navigation }) => {
 
             <Formik
                 initialValues={{ email: '', fullName: '', password: '', confirmPassword: '' }}
-                validate={values => {
-                  if (!values.email || !values.fullName || !values.password || !values.confirmPassword) {
-                    setMessage('Vennligst fyll inn alle feltene')
-                  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                    setMessage('Ugyldig e-post')
-                  } else if (values.password.length < 6 || values.confirmPassword.length < 6) {
-                    setMessage('Passordet må være lengre enn 6 bokstaver!')
-                  }
-                }}
-                onSubmit={(values, setSubmitting) => {
-                  handleSignup(values, setSubmitting)
+                validate={hasValid}
+                onSubmit={(values) => {
+                  setEmail(values.email)
+                  setPassword(values.password)
+                  setFullName(values.fullName)
+                  handleSignup(email, password)
                 }}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (

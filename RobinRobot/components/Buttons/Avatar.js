@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import firebase from '../firebase/Config'
+import firebase from '../../firebase/Config'
 import { useGlobalState } from '../StateManagement/GlobalState'
 
 import ProfileModal from '../Modals/ProfileModal'

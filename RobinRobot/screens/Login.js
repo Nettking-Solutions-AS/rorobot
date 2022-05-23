@@ -15,57 +15,47 @@ import RegularButton from '../components/Buttons/RegularButton'
 import PressableText from '../components/Texts/PressableText'
 import RowContainer from '../components/Containers/RowContainer'
 import firebase from '../firebase/Config'
-import { validateEmail, validatePassword } from '../lib/Validation'
-import { Error } from '../lib/Types'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 const { primary } = colors
 
 const Login = ({ navigation }) => {
   const [message, setMessage] = useState('')
   const [isSuccessMessage, setIsSuccessMessage] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState<Error[]>([]);
 
   const moveTo = (screen, payload) => {
     navigation.navigate(screen, { ...payload })
   }
 
-  const handleLogin = async (credentials, setSubmitting) => {
-    const validationErrors = [
-      ...validateEmail(email),
-      ...validatePassword(password),
-    ];
+  const hasValid = values => {
+    const { email, password } = values
+    if (!email) {
+      setMessage('E-post er påkrevd!')
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      setMessage('Ugyldig e-post')
+    }
+    if (!password) {
+      setMessage('Passord er påkrevd!')
+    } else if (/^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*)$/i.test(password)) {
+      setMessage('Passordet må ha minst 8 tegn, en bokstav og ett tall')
+    }
+  }
 
-    setErrors(validationErrors);
-
+  const handleLogin = async (email, password) => {
     // call backend
-    if (validationErrors.length === 0) {
+    if (setMessage.length === 0) {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then((response) => {
-          const userRef = firebase.firestore().collection('users');
-          userRef
-            .doc(response.user?.uid)
-            .get()
-            .then((firestoreDocument) => {
-              if (!firestoreDocument.exists) {
-                setMessage('Brukeren eksisterer ikke!');
-                return;
-              }
-              const user = firestoreDocument.data();
-              // move to next page
-              moveTo('Dashboard')
-            })
-            .catch((error) => {
-              setMessage('Innlogging feilet ' + error.message)
-            });
+        .then((userCredentials) => {
+          const user = userCredentials.user
+          // move to next page
+          moveTo('Dashboard')
         })
         .catch((error) => {
           setMessage('Innlogging feilet ' + error.message)
-        });
+        })
     }
-  };
+  }
 
   return (
     <MainContainer>
@@ -74,14 +64,12 @@ const Login = ({ navigation }) => {
 
             <Formik
                 initialValues={{ email: '', password: '' }}
-                onSubmit={(values, setSubmitting) => {
-                  if (values.email === '' || values.password === '') {
-                    setMessage('Vennligst fyll inn alle feltene')
-                    setSubmitting(false)
-                  } else {
-                    handleLogin(values, setSubmitting)
-                  }
-                }}
+                validate={hasValid}
+                onSubmit={(values) => {
+                  const { email, password } = values
+                  handleLogin(email, password)
+                }
+                }
             >
                 {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (
                     <>
