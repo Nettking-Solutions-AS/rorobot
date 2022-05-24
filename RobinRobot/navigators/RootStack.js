@@ -9,8 +9,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { colors } from '../components/colors'
 
 // Screens
-import Login from '../screens/Login'
-import Signup from '../screens/Signup'
+import Login from '../components/Pages/Login'
+import Registration from '../components/Pages/Registration'
 import EmailVerification from '../screens/EmailVerification'
 import ForgotPassword from '../screens/ForgotPassword'
 import ResetPassword from '../screens/ResetPassword'
@@ -53,8 +53,8 @@ const RootStack = () => {
                 }}
             />
             <Stack.Screen
-                name='Signup'
-                component={Signup}
+                name='Registration'
+                component={Registration}
                 options={{
                   headerTitle: 'Registrer Deg',
                   headerTitleAlign: 'left'

@@ -5,9 +5,6 @@ const validEmail = (em: string) =>
     em
   );
 
-const validDate = (date: string) =>
-  /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/.test(date);
-
 export const validateEmail = (email: string): Error[] => {
   const validationErrors: Error[] = [];
   if (email.length === 0) {
