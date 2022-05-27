@@ -1,19 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import {
-  NativeBaseProvider,
-  Box,
-  Text,
-  Heading,
-  VStack,
   FormControl,
-  Input,
-  Button,
-  HStack,
-  Link,
-  Select,
 } from "native-base";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
 import firebase from '../../firebase/Config'
 import { validateEmail, validateName, validatePassword } from '../../lib/Validation'
 import { Error } from "../../lib/Types.d";
@@ -22,9 +12,7 @@ import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
 import RegularText from "../Texts/RegularText";
 import StyledTextInput from "../Inputs/StyledTextInput";
 import RegularButton from "../Buttons/RegularButton";
-import RowContainer from '../Containers/RowContainer'
 import PressableText from "../Texts/PressableText";
-import MsgBox from "../Texts/MsgBox";
 
 const Registration = ({ navigation }: { navigation:any}) => {
   const [message, setMessage] = useState('')

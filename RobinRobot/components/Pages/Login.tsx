@@ -3,7 +3,6 @@ import {
   FormControl,
 } from "native-base";
 import { useState } from "react";
-import { StyleSheet } from "react-native";
 import firebase from "../../firebase/Config";
 import { Error } from "../../lib/Types";
 import { validateEmail, validatePassword } from '../../lib/Validation';
