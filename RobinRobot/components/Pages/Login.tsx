@@ -65,7 +65,7 @@ const Login = ({ navigation }: { navigation: any}) => {
     <MainContainer>
       <KeyboardAvoidingContainer>
         <RegularText style={{ marginBottom: 25 }}>
-          skriv inn kontolegitimasjonen din
+          Skriv inn kontolegitimasjonen din
         </RegularText>
 
         <FormControl
