@@ -1,22 +1,21 @@
 import * as React from "react";
 import {
-  Box,
-  Text,
-  Heading,
-  VStack,
   FormControl,
-  Input,
-  Link,
-  Button,
-  HStack,
 } from "native-base";
 import { useState } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
 import firebase from "../../firebase/Config";
 import { Error } from "../../lib/Types";
 import { validateEmail, validatePassword } from '../../lib/Validation';
+import MainContainer from "../Containers/MainContainer";
+import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
+import RegularText from "../Texts/RegularText";
+import StyledTextInput from "../Inputs/StyledTextInput";
+import RegularButton from "../Buttons/RegularButton";
+import RowContainer from '../Containers/RowContainer'
+import PressableText from "../Texts/PressableText";
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation }: { navigation: any}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Error[]>([]);
@@ -62,79 +61,68 @@ const Login = ({ navigation }) => {
   const getErrorsByType = (type: string) =>
     errors.filter((e) => e.type === type);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Box flex={1} p={2} w="90%" mx="auto">
-        <Heading textAlign="center" color="primary.500" size="2xl">
-          Robin Robot
-        </Heading>
-        <VStack space={2} mt={5}>
-          <FormControl
-            isRequired
-            isInvalid={getErrorsByType("email").length > 0}
+    <MainContainer>
+      <KeyboardAvoidingContainer>
+        <RegularText style={{ marginBottom: 25 }}>
+          skriv inn kontolegitimasjonen din
+        </RegularText>
+
+        <FormControl
+          isRequired
+           isInvalid={getErrorsByType("email").length > 0}
+        >
+          <StyledTextInput
+            label="E-post"
+            isPassword={false}
+            onChangeText={(text:string) => setEmail(text)}
+            icon="email-variant"
+            placeholder="ola@nordmann.no"
+            keyboardType="email-address"
+            style={{ marginBottom: 25 }}
+          />
+          
+          <FormControl.ErrorMessage
+            _text={{ color: "primary.250", fontSize: "md" }}
           >
-            <FormControl.Label
-              _text={{ color: "primary.150", fontSize: "lg", fontWeight: 500 }}
-            >
-              Epost
-            </FormControl.Label>
-            <Input
-              size="lg"
-              onChangeText={(text) => setEmail(text)}
-            />
-            <FormControl.ErrorMessage
-              _text={{ color: "primary.250", fontSize: "md" }}
-            >
-              {getErrorsByType("email").map((e) => e.message)}
-            </FormControl.ErrorMessage>
-          </FormControl>
-          <FormControl
-            isRequired
-            isInvalid={getErrorsByType("password").length > 0}
-            mb={5}
+            {getErrorsByType("email").map((e) => e.message)}
+          </FormControl.ErrorMessage>
+        </FormControl>
+
+        <FormControl
+          isRequired
+          isInvalid={getErrorsByType("password").length > 0}
+          mb={5}
+        >
+            
+          <StyledTextInput 
+            type="password" 
+            onChangeText={(text:string) => setPassword(text)} 
+            label="Passord"
+            icon="lock-open"
+            placeholder="* * * * * * * *"
+            isPassword={true}
+            style={{ marginBottom: 25 }}
+          />
+      
+          <FormControl.ErrorMessage
+            _text={{ color: "primary.250", fontSize: "md" }}
           >
-            <FormControl.Label
-              _text={{ color: "primary.150", fontSize: "lg", fontWeight: 500 }}
-            >
-              Passord
-            </FormControl.Label>
-            <Input type="password" onChangeText={(text) => setPassword(text)} />
-            <FormControl.ErrorMessage
-              _text={{ color: "primary.250", fontSize: "md" }}
-            >
-              {getErrorsByType("password").map((e) => e.message)}
-            </FormControl.ErrorMessage>
-          </FormControl>
-          <VStack space={2}>
-            <Button
-              size="md"
-              colorScheme="cyan"
-              _text={{ color: "primary.200" }}
-              onPress={onLoginPress}
-            >
-              Login
-            </Button>
-          </VStack>
-          <HStack justifyContent="center">
-            <Text fontSize="md" color="primary.150" fontWeight={400}>
-              Har du ikke bruker?{" "}
-            </Text>
-            <Link
-              _text={{ color: "primary.500", bold: true, fontSize: "md" }}
-              onPress={() => navigation.navigate('Registration')}
-            >
-              Registrer deg
-            </Link>
-          </HStack>
-        </VStack>
-      </Box>
-    </SafeAreaView>
+            {getErrorsByType("password").map((e) => e.message)}
+          </FormControl.ErrorMessage>
+        </FormControl>
+
+        <RegularButton onPress={onLoginPress}>
+          Login
+        </RegularButton>
+
+        <RowContainer>
+          <PressableText onPress={() => navigation.navigate('Registration')}>Opprett ny konto</PressableText>
+          <PressableText onPress={() => navigation.navigate('ForgotPassword')}>Glemt passord</PressableText>
+        </RowContainer>
+        
+      </KeyboardAvoidingContainer>
+    </MainContainer>
   );
 }
 
