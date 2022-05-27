@@ -59,7 +59,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
       .catch((error) => {
         setMessage('Feilet: ' + error.message)
       })
-      navigation.navigate('Dashboard')
+      navigation.navigate('MyExchanges')
     }
   }
 
