@@ -43,7 +43,7 @@ const RootStack = () => {
                 paddingRight: 25
               }
             }}
-            initialRouteName='Login'
+            initialRouteName='MyExchanges'
         >
             <Stack.Screen
                 name='Login'

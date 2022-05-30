@@ -15,7 +15,7 @@ const ButtonView = styled.TouchableOpacity`
     align-items: center;
     border-radius: 10px;
     height: 50px;
-    margin-top: 10px;
+    margin-top: 25px;
 `
 
 const ConnectButton = (props) => {

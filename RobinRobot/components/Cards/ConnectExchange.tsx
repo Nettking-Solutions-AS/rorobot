@@ -1,18 +1,21 @@
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { FormControl, Stack, Text, Input, Select, CheckIcon, WarningOutlineIcon } from "native-base";
+import { FormControl, Stack, Box, Text, Input, Select, CheckIcon, WarningOutlineIcon } from "native-base";
+import { Linking } from 'react-native'
 
 // styled components
 import styled from 'styled-components/native'
 import { ScreenHeight } from '../shared'
+import StyledTextInput2 from "../Inputs/StyledTextInput2";
 import { colors } from '../colors'
+import CreateAccount from "../Texts/CreateAccount";
 import ConnectButton from "../Buttons/Connect";
 const { primary, secondary, black } = colors
 
 const CardView = styled.View`
     flex-direction: row;
-    height: ${ScreenHeight * 0.43}px;
+    height: ${ScreenHeight * 0.5}px;
     background-color: ${primary};
     border-width: 2px;
     border-color: ${secondary};
@@ -31,8 +34,16 @@ const CardSection = styled.View`
     align-items: flex-start;
 `
 
-const ConnectExchange = ({ ...props }) => {
+const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
   const [exchange, setExchange] = React.useState('');
+  const [APIKey, setAPIKey] = React.useState('');
+
+  const onExchangePress = () => {
+    // TODO: FILL DB
+    const validationErrors = [
+      ...validateAPI()
+    ]
+  }
 
   return (
   <CardView style={{ ...props?.style }}>
@@ -67,12 +78,22 @@ const ConnectExchange = ({ ...props }) => {
             <FormControl.Label>
               <Text bold>Navn</Text>
             </FormControl.Label>
-            <Input placeholder={exchange} value={exchange} minWidth="330px" />
+
+            <Input 
+              minWidth="330px" 
+              placeholder={exchange} 
+              value={exchange}
+              onChangeText={(text:string) => setExchange(text)}
+            />
 
             <FormControl.Label>
               <Text bold>API nøkkel</Text>
             </FormControl.Label>
-            <Input minWidth="330px" />
+
+            <Input 
+              minWidth="330px" 
+              onChangeText={(text:string) => setAPIKey(text)}
+            />
 
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
               Du må skrive inn API nøkkel!
@@ -86,12 +107,19 @@ const ConnectExchange = ({ ...props }) => {
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
               Du må skrive inn hemmelig API nøkkel!
             </FormControl.ErrorMessage>
-
-            <ConnectButton>
-              Koble til
-            </ConnectButton>
+            
           </Stack>
         </FormControl>
+
+        <ConnectButton onPress={onExchangePress}>
+          Koble til
+        </ConnectButton>
+
+        <Box mt='25px'>
+          <Text minWidth="330px">Har du ikke en konto?
+            <CreateAccount onPress={ ()=>{ Linking.openURL('https://binance.com')}}> Opprett en konto hos Binance</CreateAccount>
+          </Text>
+        </Box>
       </CardSection>
   </CardView>
   )
