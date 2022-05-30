@@ -1,19 +1,18 @@
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { FormControl, Stack, Text, Input, Select, CheckIcon, WarningOutlineIcon } from "native-base";
 
 // styled components
 import styled from 'styled-components/native'
 import { ScreenHeight } from '../shared'
 import { colors } from '../colors'
-import RegularText from '../Texts/RegularText'
-import SmallText from '../Texts/SmallText'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-const { primary, secondary, black, accent } = colors
+import ConnectButton from "../Buttons/Connect";
+const { primary, secondary, black } = colors
 
 const CardView = styled.View`
     flex-direction: row;
-    height: ${ScreenHeight * 0.2}px;
+    height: ${ScreenHeight * 0.43}px;
     background-color: ${primary};
     border-width: 2px;
     border-color: ${secondary};
@@ -32,19 +31,70 @@ const CardSection = styled.View`
     align-items: flex-start;
 `
 
-const InfoCard = ({ icon, title, value, date, color, ...props }) => {
+const ConnectExchange = ({ ...props }) => {
+  const [exchange, setExchange] = React.useState('');
+
   return (
   <CardView style={{ ...props?.style }}>
       <CardSection style={{ width: '60%' }}>
-        <RegularText style={{ fontWeight: 'bold' }}>{title}</RegularText>
-        <RegularText style={{ fontWeight: 'bold', fontSize: 25 }}>kr {value}</RegularText>
-        <SmallText>{date}</SmallText>
-      </CardSection>
-      <CardSection style={{ width: '40%' }}>
-          <MaterialCommunityIcons name={icon} size={ScreenHeight * 0.13} color={color ? color : accent} />
+        <FormControl 
+          w='3/4' 
+          maxW='330' 
+          isRequired
+        >
+          <Stack space={1} w="75%" maxW="330px">
+            <FormControl.Label>
+              <Text bold>Velg børs</Text>
+            </FormControl.Label>
+            <Select 
+              selectedValue={exchange} 
+              minWidth="330" 
+              accessibilityLabel="Velg børs" 
+              placeholder="Velg børs" 
+              _selectedItem={{
+                bg: "teal.600",
+                endIcon: <CheckIcon size="5" />
+              }} 
+              onValueChange={itemValue => setExchange(itemValue)}>
+              <Select.Item label="Binance" value="Binance" />
+              <Select.Item label="Coinbase" value="Coinbase" />
+            </Select>
+
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+              Du må velge en børs!
+            </FormControl.ErrorMessage>
+
+            <FormControl.Label>
+              <Text bold>Navn</Text>
+            </FormControl.Label>
+            <Input placeholder={exchange} value={exchange} minWidth="330px" />
+
+            <FormControl.Label>
+              <Text bold>API nøkkel</Text>
+            </FormControl.Label>
+            <Input minWidth="330px" />
+
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+              Du må skrive inn API nøkkel!
+            </FormControl.ErrorMessage>
+
+            <FormControl.Label>
+              <Text bold>API hemmelig</Text>
+            </FormControl.Label>
+            <Input minWidth="330px" />
+
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+              Du må skrive inn hemmelig API nøkkel!
+            </FormControl.ErrorMessage>
+
+            <ConnectButton>
+              Koble til
+            </ConnectButton>
+          </Stack>
+        </FormControl>
       </CardSection>
   </CardView>
   )
 }
 
-export default InfoCard
+export default ConnectExchange
