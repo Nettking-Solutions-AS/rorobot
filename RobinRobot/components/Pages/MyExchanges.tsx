@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { colors } from '../../components/colors'
 
+import { FormControl, Box, Text, Input, Select, CheckIcon, WarningOutlineIcon } from "native-base";
+import { Linking } from 'react-native'
+import { Error } from "../../lib/Types.d";
+import { validateAPIKey, validateName, validateAPISecret, validateExchange } from '../../lib/Validation'
+
+// styled components
+import CreateAccount from "../Texts/CreateAccount";
+import ConnectButton from "../Buttons/Connect";
+const { primary, secondary, black } = colors
+import firebase, { db, auth } from '../../firebase/Config'
 
 // custom components
 import MainContainer from '../../components/Containers/MainContainer'
 import BigText from '../../components/Texts/BigText'
-import ConnectExchange from '../../components/Cards/ConnectExchange'
 
 // styled components
 import styled from 'styled-components/native'
@@ -22,16 +31,158 @@ const TopBg = styled.View`
     top: -30px;
 `
 
-const Dashboard = () => {
+const CardView = styled.View`
+    flex-direction: row;
+    height: ${ScreenHeight * 0.5}px;
+    background-color: ${primary};
+    border-width: 2px;
+    border-color: ${secondary};
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    elevation: 5;
+    shadow-color: ${black};
+    shadow-offset: 0px 2px;
+    shadow-opacity: 0.25;
+    shadow-radius: 4px;
+`
+
+const CardSection = styled.View`
+    justify-content: space-between;
+    align-items: flex-start;
+`
+
+const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
+  const [exchange, setExchange] = React.useState('');
+  const [APIKey, setAPIKey] = React.useState('');
+  const [APISecret, setAPISecret] = React.useState('');
+  const [name, setName] = useState('')
+  const [errors, setErrors] = useState<Error[]>([]);
+
+  const getErrorsByType = (type: string) =>
+  errors.filter((e) => e.type === type);
+
+  const onExchangePress = async () => {
+    // TODO: FILL DB
+    const validationErrors = [
+      ...validateExchange(exchange),
+      ...validateName(name),
+      ...validateAPIKey(APIKey),
+      ...validateAPISecret(APISecret)
+    ];
+
+    setErrors(validationErrors);
+    if (validationErrors.length === 0) {
+      const docRef = db.collection('users').doc(auth.currentUser?.uid);
+      const res = await docRef.set({
+        Exchange: exchange,
+        ExchangeName: name,
+        APIKey: APIKey,
+        APISecret: APISecret
+      }, { merge: true})
+    }
+  }
+
   return (
     <MainContainer style={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0 }}>
       <TopBg />
       <MainContainer style={{ backgroundColor: 'transparent' }}>
         <BigText style={{ marginBottom: 25, fontWeight: 'bold' }}>Koble til en ny børs</BigText>
-        <ConnectExchange />
+          <CardView>
+            <CardSection style={{ width: '60%' }}>
+              <FormControl 
+                w='3/4' 
+                maxW='330' 
+                isRequired
+              >
+                <FormControl.Label>
+                  <Text bold>Velg børs</Text>
+                </FormControl.Label>
+
+                <Select 
+                  selectedValue={exchange} 
+                  minWidth="330" 
+                  accessibilityLabel="Velg børs" 
+                  placeholder="Velg børs" 
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="5" />
+                  }} 
+                  onValueChange={itemValue => setExchange(itemValue)}>
+                  <Select.Item label="Binance" value="Binance" />
+                  <Select.Item label="Coinbase" value="Coinbase" />
+                </Select>
+
+                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                  {getErrorsByType("exchange").map((e) => e.message)}
+                </FormControl.ErrorMessage>
+              </FormControl>
+
+              <FormControl
+                w='3/4' 
+                maxW='330' 
+                isRequired
+                isInvalid={getErrorsByType("name").length > 0}
+              >
+                <FormControl.Label>
+                  <Text bold>Navn</Text>
+                </FormControl.Label>
+
+                <Input 
+                  minWidth="330px" 
+                  placeholder={exchange} 
+                  onChangeText={(text:string) => setName(text)}
+                />
+
+                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                  {getErrorsByType("name").map((e) => e.message)}
+                </FormControl.ErrorMessage>
+              </FormControl>
+
+              <FormControl>
+                <FormControl.Label>
+                  <Text bold>API nøkkel</Text>
+                </FormControl.Label>
+
+                <Input 
+                  minWidth="330px" 
+                  onChangeText={(text:string) => setAPIKey(text)}
+                />
+
+                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                  {getErrorsByType("APIKey").map((e) => e.message)}
+                </FormControl.ErrorMessage>
+              </FormControl>
+
+              <FormControl>
+                <FormControl.Label>
+                  <Text bold>API hemmelig</Text>
+                </FormControl.Label>
+
+                <Input 
+                  minWidth="330px" 
+                  onChangeText={(text:string) => setAPISecret(text)}
+                />
+
+                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                  {getErrorsByType("APISecret").map((e) => e.message)}
+                </FormControl.ErrorMessage>
+              </FormControl>
+
+              <ConnectButton onPress={onExchangePress}>
+                Koble til
+              </ConnectButton>
+
+              <Box mt='25px'>
+                <Text minWidth="330px">Har du ikke en konto?
+                  <CreateAccount onPress={ ()=>{ Linking.openURL('https://binance.com')}}> Opprett en konto hos Binance</CreateAccount>
+                </Text>
+              </Box>
+            </CardSection>
+        </CardView>
       </MainContainer>
     </MainContainer>
   )
 }
 
-export default Dashboard
+export default ConnectExchange
