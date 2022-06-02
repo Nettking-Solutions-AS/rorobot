@@ -10,12 +10,12 @@ export const validateEmail = (email: string): Error[] => {
   if (email.length === 0) {
     validationErrors.push({
       type: "email",
-      message: "Du må skrive inn epost-adresse!",
+      message: "You need to enter a email address",
     });
   } else if (!validEmail(email)) {
     validationErrors.push({
       type: "email",
-      message: "Ugyldig epostadresse!",
+      message: "Invalid email address",
     });
   }
 
@@ -30,12 +30,12 @@ export const validatePassword = (
   if (password.length === 0) {
     validationErrors.push({
       type: "password",
-      message: "Du må skrive inn et passord!",
+      message: "You need to enter a password",
     });
   } else if (password.length < 6) {
     validationErrors.push({
       type: "password",
-      message: "Passordet må være lengre enn 6 bokstaver!",
+      message: "The password needs to be at least 6 characters",
     });
   }
 
@@ -43,17 +43,17 @@ export const validatePassword = (
     if (confirmPassword.length === 0) {
       validationErrors.push({
         type: "confirmPassword",
-        message: "Du må skrive inn et passord!",
+        message: "You need to enter a password",
       });
     } else if (confirmPassword.length < 6) {
       validationErrors.push({
         type: "confirmPassword",
-        message: "Passordet må være lengre enn 6 bokstaver!",
+        message: "The password needs to be at least 6 characters",
       });
     } else if (password !== confirmPassword) {
       validationErrors.push({
         type: "confirmPassword",
-        message: "Passordene må være like!",
+        message: "The passwords must be equal",
       });
     }
   }
@@ -65,7 +65,40 @@ export const validateName = (name: string): Error[] => {
   if (name.length === 0) {
     validationErrors.push({
       type: "name",
-      message: "Du må skrive inn navn!",
+      message: "You need to enter a name",
+    });
+  }
+  return validationErrors;
+};
+
+export const validateAPIKey = (APIKey: string): Error[] => {
+  const validationErrors: Error[] = [];
+  if (APIKey.length === 0) {
+    validationErrors.push({
+      type: "APIKey",
+      message: "You need to provide a valid API key"
+    });
+  }
+  return validationErrors;
+};
+
+export const validateAPISecret = (APISecret: string): Error[] => {
+  const validationErrors: Error[] = [];
+  if (APISecret.length === 0) {
+    validationErrors.push({
+      type: "APISecret",
+      message: "You need to provide a valid API secret key"
+    });
+  }
+  return validationErrors;
+};
+
+export const validateExchange = (APISecret: string): Error[] => {
+  const validationErrors: Error[] = [];
+  if (APISecret.length === 0) {
+    validationErrors.push({
+      type: "Exchange",
+      message: "You need to enter a Exchange"
     });
   }
   return validationErrors;

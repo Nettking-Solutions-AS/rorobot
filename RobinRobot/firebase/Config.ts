@@ -12,7 +12,7 @@ const firebaseConfig = {
   measurementId: 'G-KDZCFTRE41'
 }
 
-let app
+let app: firebase.app.App
 
 if (firebase.apps.length === 0) {
   app = firebase.initializeApp(firebaseConfig)
@@ -20,7 +20,7 @@ if (firebase.apps.length === 0) {
   app = firebase.app()
 }
 
-const db = app.firestore()
-const auth = firebase.auth()
+export const db = app.firestore()
+export const auth = firebase.auth()
 
 export default firebase

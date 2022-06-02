@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 
 // React Navigation
@@ -11,6 +10,7 @@ import { colors } from '../components/colors'
 // Screens
 import Login from '../components/Pages/Login'
 import Registration from '../components/Pages/Registration'
+import MyExchanges from '../components/Pages/MyExchanges'
 import EmailVerification from '../screens/EmailVerification'
 import ForgotPassword from '../screens/ForgotPassword'
 import ResetPassword from '../screens/ResetPassword'
@@ -101,6 +101,10 @@ const RootStack = () => {
                   headerRight: () => <Avatar />
 
                 }}
+            />
+            <Stack.Screen 
+              name='MyExchanges'
+              component={MyExchanges}
             />
         </Stack.Navigator>
     </NavigationContainer>
