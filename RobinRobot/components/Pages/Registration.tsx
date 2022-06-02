@@ -1,9 +1,7 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import {
   FormControl,
 } from "native-base";
-import { StyleSheet } from "react-native";
 import firebase from '../../firebase/Config'
 import { validateEmail, validateName, validatePassword } from '../../lib/Validation'
 import { Error } from "../../lib/Types.d";
@@ -62,12 +60,6 @@ const Registration = ({ navigation }: { navigation:any}) => {
       navigation.navigate('MyExchanges')
     }
   }
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
 
   return (
     <MainContainer>

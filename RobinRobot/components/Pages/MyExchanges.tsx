@@ -11,7 +11,7 @@ import { validateAPIKey, validateName, validateAPISecret, validateExchange } fro
 import CreateAccount from "../Texts/CreateAccount";
 import ConnectButton from "../Buttons/Connect";
 const { primary, secondary, black } = colors
-import firebase, { db, auth } from '../../firebase/Config'
+import { db, auth } from '../../firebase/Config'
 
 // custom components
 import MainContainer from '../../components/Containers/MainContainer'
@@ -80,6 +80,7 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
         APIKey: APIKey,
         APISecret: APISecret
       }, { merge: true})
+      navigation.navigate('Dashboard')
     }
   }
 

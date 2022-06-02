@@ -12,7 +12,7 @@ const firebaseConfig = {
   measurementId: 'G-KDZCFTRE41'
 }
 
-let app
+let app: firebase.app.App
 
 if (firebase.apps.length === 0) {
   app = firebase.initializeApp(firebaseConfig)
