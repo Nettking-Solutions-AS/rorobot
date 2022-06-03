@@ -88,7 +88,7 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
     <MainContainer style={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0 }}>
       <TopBg />
       <MainContainer style={{ backgroundColor: 'transparent' }}>
-        <BigText style={{ marginBottom: 25, fontWeight: 'bold' }}>Koble til en ny børs</BigText>
+        <BigText style={{ marginBottom: 25, fontWeight: 'bold' }}>Connect new exchange</BigText>
           <CardView>
             <CardSection style={{ width: '60%' }}>
               <FormControl 
@@ -103,8 +103,8 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
                 <Select 
                   selectedValue={exchange} 
                   minWidth="330" 
-                  accessibilityLabel="Velg børs" 
-                  placeholder="Velg børs" 
+                  accessibilityLabel="Choose exchange" 
+                  placeholder="Choose exchange" 
                   _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />
@@ -126,7 +126,7 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
                 isInvalid={getErrorsByType("name").length > 0}
               >
                 <FormControl.Label>
-                  <Text bold>Navn</Text>
+                  <Text bold>Name</Text>
                 </FormControl.Label>
 
                 <Input 
@@ -142,7 +142,7 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
 
               <FormControl>
                 <FormControl.Label>
-                  <Text bold>API nøkkel</Text>
+                  <Text bold>API key</Text>
                 </FormControl.Label>
 
                 <Input 
@@ -157,7 +157,7 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
 
               <FormControl>
                 <FormControl.Label>
-                  <Text bold>API hemmelig</Text>
+                  <Text bold>API secret</Text>
                 </FormControl.Label>
 
                 <Input 
@@ -171,12 +171,12 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
               </FormControl>
 
               <ConnectButton onPress={onExchangePress}>
-                Koble til
+                Connect
               </ConnectButton>
 
               <Box mt='25px'>
-                <Text minWidth="330px">Har du ikke en konto?
-                  <CreateAccount onPress={ ()=>{ Linking.openURL('https://binance.com')}}> Opprett en konto hos Binance</CreateAccount>
+                <Text minWidth="330px">Don't have an account?
+                  <CreateAccount onPress={ ()=>{ Linking.openURL('https://binance.com')}}> Create an account with Binance</CreateAccount>
                 </Text>
               </Box>
             </CardSection>

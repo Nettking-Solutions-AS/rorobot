@@ -38,7 +38,7 @@ const Login = ({ navigation }: { navigation: any}) => {
             .then((firestoreDocument) => {
               if (!firestoreDocument.exists) {
                 // eslint-disable-next-line no-alert
-                alert("Brukeren eksisterer ikke!");
+                alert("The user does not exist!");
                 // return;
               }
               navigation.navigate('Dashboard', { name: 'Aleksander'})
@@ -64,7 +64,7 @@ const Login = ({ navigation }: { navigation: any}) => {
     <MainContainer>
       <KeyboardAvoidingContainer>
         <RegularText style={{ marginBottom: 25 }}>
-          Skriv inn kontolegitimasjonen din
+          Fill in your account credentials
         </RegularText>
 
         <FormControl
@@ -72,7 +72,7 @@ const Login = ({ navigation }: { navigation: any}) => {
            isInvalid={getErrorsByType("email").length > 0}
         >
           <StyledTextInput
-            label="E-post"
+            label="Email"
             isPassword={false}
             onChangeText={(text:string) => setEmail(text)}
             icon="email-variant"
@@ -97,7 +97,7 @@ const Login = ({ navigation }: { navigation: any}) => {
           <StyledTextInput 
             type="password" 
             onChangeText={(text:string) => setPassword(text)} 
-            label="Passord"
+            label="Password"
             icon="lock-open"
             placeholder="* * * * * * * *"
             isPassword={true}
@@ -112,12 +112,12 @@ const Login = ({ navigation }: { navigation: any}) => {
         </FormControl>
 
         <RegularButton onPress={onLoginPress}>
-          Login
+          Log in
         </RegularButton>
 
         <RowContainer>
-          <PressableText onPress={() => navigation.navigate('Registration')}>Opprett ny konto</PressableText>
-          <PressableText onPress={() => navigation.navigate('ForgotPassword')}>Glemt passord</PressableText>
+          <PressableText onPress={() => navigation.navigate('Registration')}>Create new account</PressableText>
+          <PressableText onPress={() => navigation.navigate('ForgotPassword')}>Forgot password</PressableText>
         </RowContainer>
         
       </KeyboardAvoidingContainer>

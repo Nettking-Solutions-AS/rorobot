@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { View } from 'react-native'
 

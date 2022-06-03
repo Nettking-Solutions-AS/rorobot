@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 
 import { KeyboardAvoidingView, Keyboard, ScrollView, Pressable, Platform } from 'react-native'

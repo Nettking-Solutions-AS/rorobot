@@ -67,14 +67,14 @@ const EmailVerification = ({ navigation }) => {
 
       // hold on briefly
       setTimeout(() => {
-        setResendStatus('Send på ny')
+        setResendStatus('Resend')
         setActiveResend(false)
         triggerTimer()
       }, 5000)
     } catch (error) {
       setResendingEmail(false)
       setResendStatus('Failed!')
-      alert('Utsending av e-post feilet: ' + error.message)
+      alert('Sending of email failed: ' + error.message)
     }
   }
 
@@ -85,10 +85,10 @@ const EmailVerification = ({ navigation }) => {
       // call backend
 
       setVerifying(false)
-      return showModal('success', 'Helt fint!', 'Din e-post har blitt bekreftet.', 'Fortsett')
+      return showModal('success', 'Perfect!', 'Your email has been verified.', 'Continue')
     } catch (error) {
       setVerifying(false)
-      return showModal('failed', 'Feilet!', error.message, 'Lukk')
+      return showModal('failed', 'Failed!', error.message, 'Close')
     }
   }
 
@@ -97,13 +97,13 @@ const EmailVerification = ({ navigation }) => {
             <IconHeader name="lock-open" style={{ marginBottom: 30 }} />
 
             <RegularText style={{ textAlign: 'center' }}>
-                Skriv inn koden som ble sendt til din e-post
+                Fill in the code sent to your email
             </RegularText>
 
             <StyledCodeInput code={code} setCode={setCode} maxLength={MAX_CODE_LENGTH} setPinReady={setPinReady}/>
 
-            {!verifying && pinReady && <RegularButton onPress={handleEmailVerification}>Verifiser</RegularButton>}
-            {!verifying && !pinReady && <RegularButton disabled={true} style={{ backgroundColor: secondary }} textStyle={{ color: lightGray }}>Verifiser</RegularButton>}
+            {!verifying && pinReady && <RegularButton onPress={handleEmailVerification}>Verify</RegularButton>}
+            {!verifying && !pinReady && <RegularButton disabled={true} style={{ backgroundColor: secondary }} textStyle={{ color: lightGray }}>Verify</RegularButton>}
 
             {verifying && (
                 <RegularButton disabled={true}>

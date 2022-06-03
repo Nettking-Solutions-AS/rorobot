@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 
 // styled components
@@ -60,7 +59,7 @@ const ResendTimer = ({ activeResend, setActiveResend, targetTimeInSeconds, resen
   return (
         <StyledView {...props}>
             <RowContainer>
-                <SmallText>Mottok du ikke e-posten?</SmallText>
+                <SmallText>Did you not receive the email?</SmallText>
                 <PressableText
                     onPress={() => resendEmail(triggerTimer)}
                     disabled={!activeResend}
@@ -72,7 +71,7 @@ const ResendTimer = ({ activeResend, setActiveResend, targetTimeInSeconds, resen
 
             {!activeResend && (
                 <SmallText>
-                    om <SmallText style={{ fontWeight: 'bold' }}>{timeLeft || targetTime}</SmallText> sekund(er)
+                    in <SmallText style={{ fontWeight: 'bold' }}>{timeLeft || targetTime}</SmallText> second(s)
                 </SmallText>
             )}
         </StyledView>

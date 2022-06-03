@@ -33,7 +33,7 @@ const ForgotPassword = ({ navigation }) => {
       moveTo('ResetPassword')
       setSubmitting(false)
     } catch (error) {
-      setMessage('Forespørsel feilet: ' + error.message)
+      setMessage('Request failed: ' + error.message)
       setSubmitting(false)
     }
   }
@@ -41,13 +41,13 @@ const ForgotPassword = ({ navigation }) => {
   return <MainContainer>
         <KeyboardAvoidingContainer>
             <IconHeader name='key' style={{marginBottom: 30 }} />
-            <RegularText style={{ marginBottom: 25 }}>Skriv inn detaljene under for å starte prosessen</RegularText>
+            <RegularText style={{ marginBottom: 25 }}>Fill in your credentials to start the process</RegularText>
 
             <Formik
                 initialValues={{ email: ''}}
                 onSubmit={(values, setSubmitting) => {
                   if (values.email === '') {
-                    setMessage('Vennligst fyll inn alle feltene')
+                    setMessage('Please fill in all the fields')
                     setSubmitting(false)
                   } else {
                     handleOnSubmit(values, setSubmitting)
@@ -57,7 +57,7 @@ const ForgotPassword = ({ navigation }) => {
                 {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (
                     <>
                         <StyledTextInput
-                            label="E-post"
+                            label="Email"
                             icon="email-variant"
                             placeholder="ola@nordmann.no"
                             keyboardType="email-address"
@@ -69,7 +69,7 @@ const ForgotPassword = ({ navigation }) => {
 
                         <MsgBox style={{ marginBottom: 25 }} success={isSuccessMessage}>{ message || ' '}</MsgBox>
 
-                        {!isSubmitting && <RegularButton onPress={handleSubmit}>Send inn</RegularButton>}
+                        {!isSubmitting && <RegularButton onPress={handleSubmit}>Submit</RegularButton>}
                         {isSubmitting && (
                             <RegularButton disabled={true}>
                                 <ActivityIndicator size="small" color={primary} />

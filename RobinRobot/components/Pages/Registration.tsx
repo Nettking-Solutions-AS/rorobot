@@ -37,7 +37,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
         if (!response.user) {
-          throw new Error('Brukeren er ikke definert')
+          throw new Error('The user is not defined')
         }
         const { uid } = response.user
         const data = {
@@ -65,7 +65,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
     <MainContainer>
       <KeyboardAvoidingContainer>
         <RegularText style={{ marginBottom: 25 }}>
-          Skriv inn kontolegitimasjonen din
+          Fill inn your account credentials
         </RegularText >
 
         <FormControl
@@ -73,7 +73,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
           isInvalid={getErrorsByType("name").length > 0}
         >
           <StyledTextInput
-            label="Fullt Navn"
+            label="Full name"
             icon="account"
             placeholder="Ola Nordmann"
             isPassword={false}
@@ -94,7 +94,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
         >
 
           <StyledTextInput
-             label="E-post"
+             label="Email"
              icon="email-variant"
              placeholder="ola@nordmann.no"
              keyboardType="email-address"
@@ -116,7 +116,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
         >
 
           <StyledTextInput
-            label="Passord"
+            label="Password"
             icon="lock-open"
             placeholder="* * * * * * * *"
             isPassword={true}
@@ -137,7 +137,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
         >
              
           <StyledTextInput
-            label="Bekreft Passord"
+            label="Confirm password"
             icon="lock-open"
             placeholder="* * * * * * * *"
             isPassword={true}
@@ -152,10 +152,10 @@ const Registration = ({ navigation }: { navigation:any}) => {
           </FormControl.ErrorMessage>
         </FormControl>
 
-        <RegularButton style={{ marginTop: 25 }} onPress={onRegisterPress}>Registrer deg</RegularButton>
+        <RegularButton style={{ marginTop: 25 }} onPress={onRegisterPress}>Register</RegularButton>
     
         <PressableText style={{ paddingVertical: 15 }} onPress={() => navigation.navigate('Login')}>
-          Logg inn på en eksisterende bruker
+          Log in to an existing account
         </PressableText>
             
       </KeyboardAvoidingContainer>

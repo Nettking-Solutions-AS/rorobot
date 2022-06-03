@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { ActivityIndicator } from 'react-native'
@@ -75,10 +74,10 @@ const ResetPassword = ({ navigation }) => {
       // move to next page
 
       setSubmitting(false)
-      return showModal('success', 'Helt fint!', 'Ditt passord har blitt tilbakestilt.', 'Fortsett')
+      return showModal('success', 'Perfect!', 'Your password has been reset.', 'Continue')
     } catch (error) {
       setSubmitting(false)
-      return showModal('failed', 'Feilet!', error.message, 'Lukk')
+      return showModal('failed', 'Failed!', error.message, 'Close')
     }
   }
 
@@ -93,21 +92,21 @@ const ResetPassword = ({ navigation }) => {
 
       // hold on briefly
       setTimeout(() => {
-        setResendStatus('Send på ny')
+        setResendStatus('Resend')
         setActiveResend(false)
         triggerTimer()
       }, 5000)
     } catch (error) {
       setResendingEmail(false)
       setResendStatus('Failed!')
-      alert('Utsending av e-post feilet: ' + error.message)
+      alert('Sending of email failed: ' + error.message)
     }
   }
 
   return <MainContainer>
         <KeyboardAvoidingContainer>
             <RegularText style={{ textAlign: 'center' }}>
-                Skriv inn koden som ble sendt til din e-post
+              Fill in the code sent to your email
             </RegularText>
 
             <StyledCodeInput code={code} setCode={setCode} maxLength={MAX_CODE_LENGTH} setPinReady={setPinReady}/>
@@ -125,10 +124,10 @@ const ResetPassword = ({ navigation }) => {
                 initialValues={{ newPassword: '', confirmNewPassword: '' }}
                 onSubmit={(values, setSubmitting) => {
                   if (values.newPassword === '' || values.confirmNewPassword === '') {
-                    setMessage('Vennligst fyll inn alle feltene')
+                    setMessage('Please fill in all the fields')
                     setSubmitting(false)
                   } else if (values.newPassword !== values.confirmNewPassword) {
-                    setMessage('Passordene er ikke like')
+                    setMessage('The passwords does not match')
                     setSubmitting(false)
                   } else {
                     handleOnSubmit(values, setSubmitting)
@@ -138,7 +137,7 @@ const ResetPassword = ({ navigation }) => {
                 {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (
                     <FormWrapper pinReady={pinReady}>
                         <StyledTextInput
-                            label="Nytt Passord"
+                            label="New password"
                             icon="lock-open-variant"
                             placeholder="* * * * * * * *"
                             onChangeText={handleChange('newPassword')}
@@ -150,7 +149,7 @@ const ResetPassword = ({ navigation }) => {
                         />
 
                         <StyledTextInput
-                            label="Bekreft Nytt Passord"
+                            label="Confirm new password"
                             icon="lock-open-variant"
                             placeholder="* * * * * * * *"
                             onChangeText={handleChange('confirmNewPassword')}
@@ -163,7 +162,7 @@ const ResetPassword = ({ navigation }) => {
 
                         <MsgBox style={{ marginBottom: 25 }} success={isSuccessMessage}>{ message || ' '}</MsgBox>
 
-                        {!isSubmitting && <RegularButton disabled={!pinReady} onPress={handleSubmit}>Send inn</RegularButton>}
+                        {!isSubmitting && <RegularButton disabled={!pinReady} onPress={handleSubmit}>Submit</RegularButton>}
                         {isSubmitting && (
                             <RegularButton disabled={true}>
                                 <ActivityIndicator size="small" color={primary} />

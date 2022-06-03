@@ -43,7 +43,6 @@ import React, {
     initialState = emptyState,
   }: {
     children: ReactNode;
-    // eslint-disable-next-line react/require-default-props
     initialState?: GlobalState;
   }) => {
     const [state, dispatch] = useReducer(Reducer, initialState);

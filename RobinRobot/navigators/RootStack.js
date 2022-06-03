@@ -48,7 +48,7 @@ const RootStack = () => {
                 name='Login'
                 component={Login}
                 options={{
-                  headerTitle: 'Logg Inn',
+                  headerTitle: 'Log in',
                   headerTitleAlign: 'left'
                 }}
             />
@@ -56,7 +56,7 @@ const RootStack = () => {
                 name='Registration'
                 component={Registration}
                 options={{
-                  headerTitle: 'Registrer Deg',
+                  headerTitle: 'Register',
                   headerTitleAlign: 'left'
                 }}
             />
@@ -64,7 +64,7 @@ const RootStack = () => {
                 name='EmailVerification'
                 component={EmailVerification}
                 options={{
-                  headerTitle: 'Bekreft E-post',
+                  headerTitle: 'Confirm email',
                   headerTitleAlign: 'left'
                 }}
             />
@@ -72,7 +72,7 @@ const RootStack = () => {
                 name='ForgotPassword'
                 component={ForgotPassword}
                 options={{
-                  headerTitle: 'Glemt Passord',
+                  headerTitle: 'Forgot password',
                   headerTitleAlign: 'left'
                 }}
             />
@@ -80,7 +80,7 @@ const RootStack = () => {
                 name='ResetPassword'
                 component={ResetPassword}
                 options={{
-                  headerTitle: 'Tilbakestill Passord',
+                  headerTitle: 'Reset password',
                   headerTitleAlign: 'left'
                 }}
             />

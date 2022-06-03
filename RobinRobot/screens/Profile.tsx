@@ -30,7 +30,7 @@ export default function Profile() {
     <SafeAreaView style={styles.container}>
       <View flex={1} p={2} alignItems="center">
         <Heading textAlign="center" color="primary.500" size="2xl" mb={100}>
-          Profil
+          Profile
         </Heading>
         <Heading>{state.currentUser?.name}</Heading>
         <Heading size="md" mt={2} mb={5}>
@@ -42,7 +42,7 @@ export default function Profile() {
           _text={{ color: "primary.200" }}
           onPress={logout}
         >
-          Logg ut
+          Log out
         </Button>
       </View>
     </SafeAreaView>
