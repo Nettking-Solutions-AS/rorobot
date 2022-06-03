@@ -19,7 +19,7 @@ const ForgotPassword = ({ navigation }: { navigation: any }) => {
   const [errors, setErrors] = useState<Error[]>([]);
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [timerCount, setTimer] = useState(10)
+  const [isSuccessMessage, setIsSuccessMessage] = useState(false)
 
   const getErrorsByType = (type: string) =>
   errors.filter((e) => e.type === type);
@@ -35,7 +35,8 @@ const ForgotPassword = ({ navigation }: { navigation: any }) => {
       sendPasswordResetEmail(auth, email)
         .then(() => {
           // Password reset email sent!
-          setMessage('Please check your email for further instructions. Redirecting to login in ' + {timerCount} + 'second(s).')
+          setIsSuccessMessage(true)
+          setMessage('Please check your email for further instructions. Redirecting to login in 10 seconds')
           setTimeout(() => {
             navigation.navigate('Login')
           }, 10000)
@@ -47,17 +48,6 @@ const ForgotPassword = ({ navigation }: { navigation: any }) => {
         })
     }
   }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer(lastTimerCount => {
-          lastTimerCount <= 1 && clearInterval(interval)
-          return lastTimerCount - 1
-      })
-    }, 1000) //each count lasts for a second
-    //cleanup the interval on complete
-    return () => clearInterval(interval)
-  }, []);
 
   return (
     <MainContainer>
@@ -92,7 +82,7 @@ const ForgotPassword = ({ navigation }: { navigation: any }) => {
 
             <RegularButton style={{ marginTop: 25 }} onPress={handleOnSubmit}>Register</RegularButton>
 
-            <MsgBox style={{ marginTop: 25 }}>{ message || ' '}</MsgBox>
+            <MsgBox style={{ marginTop: 25 }} success={isSuccessMessage}>{ message || ' '}</MsgBox>
         </KeyboardAvoidingContainer>
     </MainContainer>
   )

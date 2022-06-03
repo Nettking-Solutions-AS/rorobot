@@ -108,12 +108,13 @@ const ResetPassword = ({ navigation }) => {
             <StyledCodeInput code={code} setCode={setCode} maxLength={MAX_CODE_LENGTH} setPinReady={setPinReady}/>
 
             <ResendTimer
-                activeResend={activeResend}
-                setActiveResend={setActiveResend}
-                resendStatus={resendStatus}
-                resendingEmail={resendingEmail}
-                resendEmail={resendEmail}
-                style={{ marginBottom: 25 }}
+              activeResend={activeResend}
+              setActiveResend={setActiveResend}
+              resendStatus={resendStatus}
+              resendingEmail={resendingEmail}
+              resendEmail={resendEmail}
+              style={{ marginBottom: 25 }} 
+              targetTimeInSeconds={10}            
             />
 
             <Formik
