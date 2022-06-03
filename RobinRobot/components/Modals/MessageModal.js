@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import { Modal } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -43,7 +42,7 @@ const MessageModal = ({ buttonHandler, type, headerText, message, buttonText, mo
                 />
                 <BigText style={{ fontSize: 25, color: tertiary, marginVertical: 10 }}>{headerText}</BigText>
                 <RegularText style={{ marginBottom: 20 }}>{message}</RegularText>
-                <RegularButton onPress={buttonHandler}>{buttonText || 'Fullfør'}</RegularButton>
+                <RegularButton onPress={buttonHandler}>{buttonText || 'Finish'}</RegularButton>
             </ModalView>
         </ModalPressableContainer>
     </Modal>

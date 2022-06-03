@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import { Modal, ActivityIndicator } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -37,7 +36,7 @@ const ProfileModal = ({ buttonHandler, headerText, modalVisible, loggingOut, hid
 
                 <BigText style={{ fontSize: 25, color: tertiary, marginVertical: 20 }}>{headerText}</BigText>
 
-                {!loggingOut && <RegularButton onPress={buttonHandler}>Logg ut</RegularButton>}
+                {!loggingOut && <RegularButton onPress={buttonHandler}>Log out</RegularButton>}
                 {loggingOut && (
                     <RegularButton disabled={true}>
                         <ActivityIndicator size='small' color={primary} />

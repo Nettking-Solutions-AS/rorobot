@@ -1,5 +1,4 @@
 /* eslint-disable no-unneeded-ternary */
-/* eslint-disable react/prop-types */
 import React from 'react'
 
 // styled components
