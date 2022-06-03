@@ -13,7 +13,6 @@ import Registration from '../components/Pages/Registration'
 import MyExchanges from '../components/Pages/MyExchanges'
 import EmailVerification from '../components/Pages/EmailVerification'
 import ForgotPassword from '../components/Pages/ForgotPassword'
-import ResetPassword from '../components/Pages/ResetPassword'
 import Dashboard from '../screens/Dashboard'
 import Avatar from '../components/Buttons/Avatar'
 
@@ -68,13 +67,6 @@ const RootStack = () => {
             <Stack.Screen
                 name='ForgotPassword'
                 component={ForgotPassword}
-                options={{
-                  headerShown: false
-                }}
-            />
-            <Stack.Screen
-                name='ResetPassword'
-                component={ResetPassword}
                 options={{
                   headerShown: false
                 }}
