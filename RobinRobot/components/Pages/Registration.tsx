@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  FormControl,
+  FormControl, Text, Input, WarningOutlineIcon, Icon
 } from "native-base";
 import firebase from '../../firebase/Config'
 import { validateEmail, validateName, validatePassword } from '../../lib/Validation'
@@ -11,6 +11,7 @@ import RegularText from "../Texts/RegularText";
 import StyledTextInput from "../Inputs/StyledTextInput";
 import RegularButton from "../Buttons/RegularButton";
 import PressableText from "../Texts/PressableText";
+import { MaterialIcons } from '@expo/vector-icons'
 
 const Registration = ({ navigation }: { navigation:any}) => {
   const [message, setMessage] = useState('')
@@ -19,6 +20,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [name, setName] = useState('')
   const [errors, setErrors] = useState<Error[]>([]);
+  const [show, setShow] = useState(false)
 
   const getErrorsByType = (type: string) =>
   errors.filter((e) => e.type === type);
@@ -57,7 +59,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
       .catch((error) => {
         setMessage('Feilet: ' + error.message)
       })
-      navigation.navigate('MyExchanges')
+      navigation.navigate('EmailVerification')
     }
   }
 
@@ -66,88 +68,118 @@ const Registration = ({ navigation }: { navigation:any}) => {
       <KeyboardAvoidingContainer>
         <RegularText style={{ marginBottom: 25 }}>
           Fill inn your account credentials
-        </RegularText >
+        </RegularText>
 
         <FormControl
           isRequired
           isInvalid={getErrorsByType("name").length > 0}
         >
-          <StyledTextInput
-            label="Full name"
-            icon="account"
-            placeholder="Ola Nordmann"
-            isPassword={false}
-            style={{ marginBottom: 15 }}
+          <FormControl.Label>
+            <Text bold>Full name</Text>
+          </FormControl.Label>
+
+          <Input
+            InputLeftElement={<Icon as={<MaterialIcons name='person' />} 
+            size={7}
+            ml='3'
+            color='cyan.300' />} 
+            placeholder='Name'
+            height={12}
+            fontSize={15}
+            borderRadius={10}
             onChangeText={(text:string) => setName(text)}
           />
 
-          <FormControl.ErrorMessage
-            _text={{ color: "#e22134", fontSize: "md" }}
-          >
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             {getErrorsByType("name").map((e) => e.message)}
-          </FormControl.ErrorMessage>
+          </FormControl.ErrorMessage>    
         </FormControl>
 
         <FormControl
           isRequired
           isInvalid={getErrorsByType("email").length > 0}
         >
+          <FormControl.Label mt={25}>
+            <Text bold>Email</Text>
+          </FormControl.Label>
 
-          <StyledTextInput
-             label="Email"
-             icon="email-variant"
-             placeholder="ola@nordmann.no"
-             keyboardType="email-address"
-             isPassword={false}
-             style={{ marginBottom: 15 }}
+          <Input
+            InputLeftElement={<Icon as={<MaterialIcons name='email' />} 
+            size={7}
+            ml='4'
+            color='cyan.300' />} 
+            placeholder='Email'
+            height={12}
+            fontSize={15}
+            borderRadius={10}
             onChangeText={(text:string) => setEmail(text)}
           />
 
-          <FormControl.ErrorMessage
-            _text={{ color: "#e22134", fontSize: "md" }}
-          >
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             {getErrorsByType("email").map((e) => e.message)}
-          </FormControl.ErrorMessage>
+          </FormControl.ErrorMessage>    
         </FormControl>
 
         <FormControl
           isRequired
           isInvalid={getErrorsByType("password").length > 0}
         >
+          <FormControl.Label mt={30}>
+            <Text bold>Password</Text>
+          </FormControl.Label>
 
-          <StyledTextInput
-            label="Password"
-            icon="lock-open"
+          <Input
+            InputLeftElement={<Icon as={<MaterialIcons name='lock-open' />} 
+            size={7}
+            ml='4'
+            color='cyan.300' />} 
+            type={show ? 'text' : 'password'}
+            InputRightElement={<Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />}
+            size={7}
+            mr='3'
+            color='muted.400'
+            onPress={() => setShow(!show)}
+          />}          
+            height={12}
+            fontSize={15}
+            borderRadius={10}
             placeholder="* * * * * * * *"
-            isPassword={true}
-            style={{ marginBottom: 15 }}
             onChangeText={(text:string) => setPassword(text)}
           />
-             
-          <FormControl.ErrorMessage
-            _text={{ color: "#e22134", fontSize: "md" }}
-          >
+
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             {getErrorsByType("password").map((e) => e.message)}
           </FormControl.ErrorMessage>
         </FormControl>
-            
+
         <FormControl
           isRequired
           isInvalid={getErrorsByType("confirmPassword").length > 0}
         >
-             
-          <StyledTextInput
-            label="Confirm password"
-            icon="lock-open"
+          <FormControl.Label mt={30}>
+            <Text bold>Confirm password</Text>
+          </FormControl.Label>
+
+          <Input
+            InputLeftElement={<Icon as={<MaterialIcons name='lock-open' />} 
+            size={7}
+            ml='4'
+            color='cyan.300' />} 
+            type={show ? 'text' : 'password'}
+            InputRightElement={<Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />}
+            size={7}
+            mr='3'
+            color='muted.400'
+            onPress={() => setShow(!show)}
+          />}          
+            height={12}
+            fontSize={15}
+            borderRadius={10}
             placeholder="* * * * * * * *"
-            isPassword={true}
-            style={{ marginBottom: 15 }}
             onChangeText={(text:string) => setConfirmPassword(text)}
           />
-              
-          <FormControl.ErrorMessage
-            _text={{ color: "#e22134", fontSize: "md" }}
-          >
+
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             {getErrorsByType("confirmPassword").map((e) => e.message)}
           </FormControl.ErrorMessage>
         </FormControl>

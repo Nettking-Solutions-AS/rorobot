@@ -11,7 +11,7 @@ import { colors } from '../components/colors'
 import Login from '../components/Pages/Login'
 import Registration from '../components/Pages/Registration'
 import MyExchanges from '../components/Pages/MyExchanges'
-import EmailVerification from '../screens/EmailVerification'
+import EmailVerification from '../components/Pages/EmailVerification'
 import ForgotPassword from '../screens/ForgotPassword'
 import ResetPassword from '../screens/ResetPassword'
 import Dashboard from '../screens/Dashboard'
@@ -42,22 +42,20 @@ const RootStack = () => {
                 paddingRight: 25
               }
             }}
-            initialRouteName='Login'
+            initialRouteName='MyExchanges'
         >
             <Stack.Screen
                 name='Login'
                 component={Login}
                 options={{
-                  headerTitle: 'Log in',
-                  headerTitleAlign: 'left'
+                  headerShown: false
                 }}
             />
             <Stack.Screen
                 name='Registration'
                 component={Registration}
                 options={{
-                  headerTitle: 'Register',
-                  headerTitleAlign: 'left'
+                  headerShown: false
                 }}
             />
             <Stack.Screen
@@ -105,6 +103,9 @@ const RootStack = () => {
             <Stack.Screen 
               name='MyExchanges'
               component={MyExchanges}
+              options={{
+                  headerShown: false
+                }}
             />
         </Stack.Navigator>
     </NavigationContainer>

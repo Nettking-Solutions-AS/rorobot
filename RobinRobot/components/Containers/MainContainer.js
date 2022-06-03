@@ -8,6 +8,7 @@ const { primary } = colors
 const StyledView = styled.View`
     flex: 1;
     padding: 25px;
+    padding-top: 100px;
     background-color: ${primary};
 `
 

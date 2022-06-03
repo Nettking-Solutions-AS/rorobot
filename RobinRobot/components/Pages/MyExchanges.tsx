@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { colors } from '../../components/colors'
 
-import { FormControl, Box, Text, Input, Select, CheckIcon, WarningOutlineIcon } from "native-base";
+import { FormControl, Text, Input, Select, CheckIcon, WarningOutlineIcon } from "native-base";
 import { Linking } from 'react-native'
 import { Error } from "../../lib/Types.d";
 import { validateAPIKey, validateName, validateAPISecret, validateExchange } from '../../lib/Validation'
@@ -16,6 +16,7 @@ import { db, auth } from '../../firebase/Config'
 // custom components
 import MainContainer from '../../components/Containers/MainContainer'
 import BigText from '../../components/Texts/BigText'
+import PressableText from '../Texts/PressableText';
 
 // styled components
 import styled from 'styled-components/native'
@@ -33,7 +34,7 @@ const TopBg = styled.View`
 
 const CardView = styled.View`
     flex-direction: row;
-    height: ${ScreenHeight * 0.5}px;
+    height: ${ScreenHeight * 0.7}px;
     background-color: ${primary};
     border-width: 2px;
     border-color: ${secondary};
@@ -90,14 +91,12 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
       <MainContainer style={{ backgroundColor: 'transparent' }}>
         <BigText style={{ marginBottom: 25, fontWeight: 'bold' }}>Connect new exchange</BigText>
           <CardView>
-            <CardSection style={{ width: '60%' }}>
+            <CardSection>
               <FormControl 
-                w='3/4' 
-                maxW='330' 
                 isRequired
               >
                 <FormControl.Label>
-                  <Text bold>Velg børs</Text>
+                  <Text bold>Choose exchange</Text>
                 </FormControl.Label>
 
                 <Select 
@@ -105,6 +104,9 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
                   minWidth="330" 
                   accessibilityLabel="Choose exchange" 
                   placeholder="Choose exchange" 
+                  height={12}
+                  fontSize={15}
+                  borderRadius={10}
                   _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />
@@ -120,18 +122,19 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
               </FormControl>
 
               <FormControl
-                w='3/4' 
-                maxW='330' 
                 isRequired
                 isInvalid={getErrorsByType("name").length > 0}
               >
-                <FormControl.Label>
+                <FormControl.Label mt={25}>
                   <Text bold>Name</Text>
                 </FormControl.Label>
 
                 <Input 
                   minWidth="330px" 
                   placeholder={exchange} 
+                  height={12}
+                  fontSize={15}
+                  borderRadius={10}
                   onChangeText={(text:string) => setName(text)}
                 />
 
@@ -140,13 +143,19 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
                 </FormControl.ErrorMessage>
               </FormControl>
 
-              <FormControl>
-                <FormControl.Label>
+              <FormControl
+                isRequired
+                isInvalid={getErrorsByType("APIKey").length > 0}
+              >
+                <FormControl.Label mt={25}>
                   <Text bold>API key</Text>
                 </FormControl.Label>
 
                 <Input 
                   minWidth="330px" 
+                  height={12}
+                  fontSize={15}
+                  borderRadius={10}
                   onChangeText={(text:string) => setAPIKey(text)}
                 />
 
@@ -155,13 +164,19 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
                 </FormControl.ErrorMessage>
               </FormControl>
 
-              <FormControl>
-                <FormControl.Label>
+              <FormControl
+                isRequired
+                isInvalid={getErrorsByType("APISecret").length > 0}
+              >
+                <FormControl.Label mt={25}>
                   <Text bold>API secret</Text>
                 </FormControl.Label>
 
                 <Input 
                   minWidth="330px" 
+                  height={12}
+                  fontSize={15}
+                  borderRadius={10}
                   onChangeText={(text:string) => setAPISecret(text)}
                 />
 
@@ -174,11 +189,10 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
                 Connect
               </ConnectButton>
 
-              <Box mt='25px'>
-                <Text minWidth="330px">Don't have an account?
-                  <CreateAccount onPress={ ()=>{ Linking.openURL('https://binance.com')}}> Create an account with Binance</CreateAccount>
-                </Text>
-              </Box>
+              <Text alignSelf='center'>Don't have an account with Binance?</Text>
+              <PressableText onPress={() => { Linking.openURL('https://binance.com')}}>
+                Create an account with Binance
+              </PressableText>
             </CardSection>
         </CardView>
       </MainContainer>
