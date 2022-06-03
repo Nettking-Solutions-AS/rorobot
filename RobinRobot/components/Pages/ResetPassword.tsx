@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { ActivityIndicator } from 'react-native'
 
-import { colors } from '../components/colors'
+import { colors } from '../colors'
 
 // custom components
-import MainContainer from '../components/Containers/MainContainer'
-import KeyboardAvoidingContainer from '../components/Containers/KeyboardAvoidingContainer'
-import RegularText from '../components/Texts/RegularText'
-import StyledTextInput from '../components/Inputs/StyledTextInput'
-import MsgBox from '../components/Texts/MsgBox'
-import RegularButton from '../components/Buttons/RegularButton'
-import StyledCodeInput from '../components/Inputs/StyledCodeInput'
-import ResendTimer from '../components/Timers/ResendTimer'
+import MainContainer from '../Containers/MainContainer'
+import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
+import RegularText from '../Texts/RegularText'
+import StyledTextInput from '../Inputs/StyledTextInput'
+import MsgBox from '../Texts/MsgBox'
+import RegularButton from '../Buttons/RegularButton'
+import StyledCodeInput from '../Inputs/StyledCodeInput'
+import ResendTimer from '../Timers/ResendTimer'
 import styled from 'styled-components/native'
-import MessageModal from '../components/Modals/MessageModal'
+import MessageModal from '../Modals/MessageModal'
 const { primary } = colors
 
 const FormWrapper = styled.View`
@@ -43,10 +43,6 @@ const ResetPassword = ({ navigation }) => {
   const [headerText, setHeaderText] = useState('')
   const [modalMessage, setModalMessage] = useState('')
   const [buttonText, setButtonText] = useState('')
-
-  const moveTo = (screen, payload) => {
-    navigation.navigate(screen, { ...payload })
-  }
 
   const buttonHandler = () => {
     if (modalMessageType === 'success') {

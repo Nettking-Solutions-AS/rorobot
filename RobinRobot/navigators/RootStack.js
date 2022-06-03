@@ -12,8 +12,8 @@ import Login from '../components/Pages/Login'
 import Registration from '../components/Pages/Registration'
 import MyExchanges from '../components/Pages/MyExchanges'
 import EmailVerification from '../components/Pages/EmailVerification'
-import ForgotPassword from '../screens/ForgotPassword'
-import ResetPassword from '../screens/ResetPassword'
+import ForgotPassword from '../components/Pages/ForgotPassword'
+import ResetPassword from '../components/Pages/ResetPassword'
 import Dashboard from '../screens/Dashboard'
 import Avatar from '../components/Buttons/Avatar'
 
@@ -42,7 +42,7 @@ const RootStack = () => {
                 paddingRight: 25
               }
             }}
-            initialRouteName='MyExchanges'
+            initialRouteName='Login'
         >
             <Stack.Screen
                 name='Login'
@@ -62,24 +62,21 @@ const RootStack = () => {
                 name='EmailVerification'
                 component={EmailVerification}
                 options={{
-                  headerTitle: 'Confirm email',
-                  headerTitleAlign: 'left'
+                  headerShown: false
                 }}
             />
             <Stack.Screen
                 name='ForgotPassword'
                 component={ForgotPassword}
                 options={{
-                  headerTitle: 'Forgot password',
-                  headerTitleAlign: 'left'
+                  headerShown: false
                 }}
             />
             <Stack.Screen
                 name='ResetPassword'
                 component={ResetPassword}
                 options={{
-                  headerTitle: 'Reset password',
-                  headerTitleAlign: 'left'
+                  headerShown: false
                 }}
             />
             <Stack.Screen

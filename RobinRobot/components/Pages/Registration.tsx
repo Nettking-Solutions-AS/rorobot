@@ -8,10 +8,10 @@ import { Error } from "../../lib/Types.d";
 import MainContainer from "../Containers/MainContainer";
 import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
 import RegularText from "../Texts/RegularText";
-import StyledTextInput from "../Inputs/StyledTextInput";
 import RegularButton from "../Buttons/RegularButton";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
+import MsgBox from '../Texts/MsgBox'
 
 const Registration = ({ navigation }: { navigation:any}) => {
   const [message, setMessage] = useState('')
@@ -59,7 +59,7 @@ const Registration = ({ navigation }: { navigation:any}) => {
       .catch((error) => {
         setMessage('Feilet: ' + error.message)
       })
-      navigation.navigate('EmailVerification')
+      navigation.navigate('MyExchanges')
     }
   }
 
@@ -189,6 +189,8 @@ const Registration = ({ navigation }: { navigation:any}) => {
         <PressableText style={{ paddingVertical: 15 }} onPress={() => navigation.navigate('Login')}>
           Log in to an existing account
         </PressableText>
+
+        <MsgBox style={{ marginTop: 25 }}>{ message || ' '}</MsgBox>
             
       </KeyboardAvoidingContainer>
     </MainContainer>
