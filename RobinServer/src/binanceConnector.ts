@@ -47,6 +47,6 @@ export const getMarketPrice = async () => {
     marketPrice,
     sellPrice,
     buyPrice,
-    binanceConnectedSuccessfully: result
+    binanceConnectedSuccessfully: result,
   };
 };

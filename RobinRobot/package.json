@@ -10,10 +10,8 @@
     "eject": "expo eject",
     "lint": "eslint --ext .js --ext .tsx --ext .ts --fix . --ignore-path=.gitignore",
     "prettier": "prettier --write . --ignore-path=.gitignore",
-    "test": "jest --watchAll",
     "ci-lint": "eslint --ext .js --ext .tsx --ext .ts . --ignore-path=.gitignore",
-    "ci-prettier": "prettier --check . --ignore-path=.gitignore",
-    "ci-test": "jest --coverage --updateSnapshot"
+    "ci-prettier": "prettier --check . --ignore-path=.gitignore"
   },
   "dependencies": {
     "@binance/connector": "^1.10.0",

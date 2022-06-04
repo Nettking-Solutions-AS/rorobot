@@ -1,0 +1,39 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  frontend-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: cd RobinRobot && rm -rf node_modules && yarn install --frozen-lockfile
+
+      - name: Prettier
+        run: cd RobinRobot && yarn ci-prettier
+
+      - name: Lint
+        run: cd RobinRobot && yarn ci-lint
+  api-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: cd RobinServer && rm -rf node_modules && yarn install --frozen-lockfile
+
+      - name: Prettier
+        run: cd RobinServer && yarn ci-prettier
+
+      - name: Lint
+        run: cd RobinServer && yarn ci-lint

@@ -7,8 +7,9 @@
     "build": "tsc",
     "start": "node ./dist/index.js",
     "lint": "eslint \"**/*.{js,ts}\" --ignore-path=.prettierignore",
-    "prettier": "prettier '**/*.{js,ts,md}' --write",
-    "lint:prettier": "prettier '**/*.{js,md,ts}' --check"
+    "prettier": "prettier --write .",
+    "ci-lint": "eslint --ext .js --ext .tsx --ext .ts . --ignore-path=.prettierignore",
+    "ci-prettier": "prettier --check ."
   },
   "dependencies": {
     "axios": "^0.27.2",
