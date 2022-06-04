@@ -1,5 +1,4 @@
 import { User } from "./Types";
 
 export const isAdmin = (user: User | undefined) =>
-  user === undefined ||
-  user.role === "admin";
+  user === undefined || user.role === "admin";
