@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+npm-debug.log
+public/bundle.js
+compiler.jar
+tiny-lr.pid
+coverage
+dist
+dist-client
+.env
+*.log

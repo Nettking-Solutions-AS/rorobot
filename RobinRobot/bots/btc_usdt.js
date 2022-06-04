@@ -1,15 +1,29 @@
-require('dotenv').config
-const ccxt = require('ccxt')
-const axios = require('axios')
+import axios from "axios";
+import * as ccxt from "ccxt";
+
+const binanceClient = new ccxt.binance({
+    apiKey: "9rfVEhKoETfTwtPRx9trSaDrw72apblev77xwUIWzYJzYsMIT7viCvJoh24JS7Yd",
+    secret: "ADMZ3MYgovyUACDZ26QKLY5S2FVyCI3xTXDfuXTTGiMXQvZlujClghKQjr7x5KRc",
+    // Use the testing api
+    baseURL: 'https://testnet.binance.vision'
+});
+
+const config = {
+    asset: 'BTC',
+    base: 'USDT',
+    allocation: 0.1,        // % av portoføljen som blir satt av til hver trade
+    spread: 0.2,            // Midrate
+    tickInterval: 2000
+};
 
 const tick = async () => {
     const { asset, base, spread, allocation } = config;
     const market = `${asset}/${base}`;
 
     const orders = await binanceClient.fetchOpenOrders(market);
-    orders.forEach(async order => {
+    for (const order of orders) {
         await binanceClient.cancelOrder(order.id);
-    });
+    }
 
     const results = await Promise.all([
         axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'),
@@ -36,19 +50,8 @@ const tick = async () => {
 }
 
 const runBot_BTC_UDST = () => {
-    const config = {
-        asset: 'BTC',
-        base: 'USDT',
-        allocation: 0.1,        // % av portoføljen som blir satt av til hver trade
-        spread: 0.2,            // Midrate
-        tickInterval: 2000
-    };
-    const binanceClient = new ccxt.binance({
-        apiKey: proccess.env.API_ENV,
-        secret: proccess.env.API_SECRET
-    });
-    tick(config, binanceClient);
-    setInterval(tick, config.tickInterval, config, binanceClient);
+    tick();
+    // setInterval(tick, config.tickInterval);
 };
 
 export default runBot_BTC_UDST;
