@@ -1,20 +1,18 @@
 import * as React from "react";
-import {
-  FormControl,
-} from "native-base";
+import { FormControl } from "native-base";
 import { useState } from "react";
 import firebase from "../../firebase/Config";
 import { Error } from "../../lib/Types";
-import { validateEmail, validatePassword } from '../../lib/Validation';
+import { validateEmail, validatePassword } from "../../lib/Validation";
 import MainContainer from "../Containers/MainContainer";
-import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
+import KeyboardAvoidingContainer from "../Containers/KeyboardAvoidingContainer";
 import RegularText from "../Texts/RegularText";
 import StyledTextInput from "../Inputs/StyledTextInput";
 import RegularButton from "../Buttons/RegularButton";
-import RowContainer from '../Containers/RowContainer'
+import RowContainer from "../Containers/RowContainer";
 import PressableText from "../Texts/PressableText";
 
-const Login = ({ navigation }: { navigation: any}) => {
+const Login = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Error[]>([]);
@@ -41,7 +39,7 @@ const Login = ({ navigation }: { navigation: any}) => {
                 alert("The user does not exist!");
                 // return;
               }
-              navigation.navigate('Dashboard', { name: 'Aleksander'})
+              navigation.navigate("Dashboard", { name: "Aleksander" });
               // const user = firestoreDocument.data();
               // TODO: Fetch user items
             })
@@ -67,20 +65,17 @@ const Login = ({ navigation }: { navigation: any}) => {
           Fill in your account credentials
         </RegularText>
 
-        <FormControl
-          isRequired
-           isInvalid={getErrorsByType("email").length > 0}
-        >
+        <FormControl isRequired isInvalid={getErrorsByType("email").length > 0}>
           <StyledTextInput
             label="Email"
             isPassword={false}
-            onChangeText={(text:string) => setEmail(text)}
+            onChangeText={(text: string) => setEmail(text)}
             icon="email-variant"
             placeholder="ola@nordmann.no"
             keyboardType="email-address"
             style={{ marginBottom: 25 }}
           />
-          
+
           <FormControl.ErrorMessage
             _text={{ color: "primary.250", fontSize: "md" }}
           >
@@ -93,17 +88,16 @@ const Login = ({ navigation }: { navigation: any}) => {
           isInvalid={getErrorsByType("password").length > 0}
           mb={5}
         >
-            
-          <StyledTextInput 
-            type="password" 
-            onChangeText={(text:string) => setPassword(text)} 
+          <StyledTextInput
+            type="password"
+            onChangeText={(text: string) => setPassword(text)}
             label="Password"
             icon="lock-open"
             placeholder="* * * * * * * *"
             isPassword={true}
             style={{ marginBottom: 25 }}
           />
-      
+
           <FormControl.ErrorMessage
             _text={{ color: "primary.250", fontSize: "md" }}
           >
@@ -111,18 +105,19 @@ const Login = ({ navigation }: { navigation: any}) => {
           </FormControl.ErrorMessage>
         </FormControl>
 
-        <RegularButton onPress={onLoginPress}>
-          Log in
-        </RegularButton>
+        <RegularButton onPress={onLoginPress}>Log in</RegularButton>
 
         <RowContainer>
-          <PressableText onPress={() => navigation.navigate('Registration')}>Create new account</PressableText>
-          <PressableText onPress={() => navigation.navigate('ForgotPassword')}>Forgot password</PressableText>
+          <PressableText onPress={() => navigation.navigate("Registration")}>
+            Create new account
+          </PressableText>
+          <PressableText onPress={() => navigation.navigate("ForgotPassword")}>
+            Forgot password
+          </PressableText>
         </RowContainer>
-        
       </KeyboardAvoidingContainer>
     </MainContainer>
   );
-}
+};
 
 export default Login;

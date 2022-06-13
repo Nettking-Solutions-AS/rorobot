@@ -1,81 +1,92 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
 // styled components
-import styled from 'styled-components/native'
-import { colors } from '../colors'
-import SmallText from '../Texts/SmallText'
-import PressableText from '../Texts/PressableText'
-import RowContainer from '../Containers/RowContainer'
-const { accent, success, fail } = colors
+import styled from "styled-components/native";
+import { colors } from "../colors";
+import SmallText from "../Texts/SmallText";
+import PressableText from "../Texts/PressableText";
+import RowContainer from "../Containers/RowContainer";
+const { accent, success, fail } = colors;
 
 const StyledView = styled.View`
-    align-items: center;
-`
+  align-items: center;
+`;
 
 const ResendText = styled(SmallText)`
-    color: ${accent};
-    ${(props) => {
-        const { resendStatus } = props
-        if (resendStatus === 'Failed!') {
-            return `color: ${fail}`
-        } else if (resendStatus === 'Sent!') {
-            return `color: ${success}`
-        }
-    }}
-`
+  color: ${accent};
+  ${(props) => {
+    const { resendStatus } = props;
+    if (resendStatus === "Failed!") {
+      return `color: ${fail}`;
+    } else if (resendStatus === "Sent!") {
+      return `color: ${success}`;
+    }
+  }}
+`;
 
-const ResendTimer = ({ activeResend, setActiveResend, targetTimeInSeconds, resendEmail, resendStatus, ...props }) => {
-  const [timeLeft, setTimeLeft] = useState(null)
-  const [targetTime, setTargetTime] = useState(null)
+const ResendTimer = ({
+  activeResend,
+  setActiveResend,
+  targetTimeInSeconds,
+  resendEmail,
+  resendStatus,
+  ...props
+}) => {
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [targetTime, setTargetTime] = useState(null);
 
-  let resendTimerInterval
+  let resendTimerInterval;
 
   const triggerTimer = (targetTimeInSeconds = 30) => {
-    setTargetTime(targetTimeInSeconds)
-    setActiveResend(false)
-    const finalTime = +new Date() + targetTimeInSeconds * 1000
-    resendTimerInterval = setInterval(() => calculateTimeLeft(finalTime), 1000)
-  }
+    setTargetTime(targetTimeInSeconds);
+    setActiveResend(false);
+    const finalTime = +new Date() + targetTimeInSeconds * 1000;
+    resendTimerInterval = setInterval(() => calculateTimeLeft(finalTime), 1000);
+  };
 
   const calculateTimeLeft = (finalTime) => {
-    const difference = finalTime - +new Date()
+    const difference = finalTime - +new Date();
     if (difference >= 0) {
-      setTimeLeft(Math.round(difference / 1000))
+      setTimeLeft(Math.round(difference / 1000));
     } else {
-      clearInterval(resendTimerInterval)
-      setActiveResend(true)
-      setTimeLeft(null)
+      clearInterval(resendTimerInterval);
+      setActiveResend(true);
+      setTimeLeft(null);
     }
-  }
+  };
 
   useEffect(() => {
-    triggerTimer(targetTimeInSeconds)
+    triggerTimer(targetTimeInSeconds);
 
     return () => {
-      clearInterval(resendTimerInterval)
-    }
-  }, [])
+      clearInterval(resendTimerInterval);
+    };
+  }, []);
 
   return (
-        <StyledView {...props}>
-            <RowContainer>
-                <SmallText>Did you not receive the email?</SmallText>
-                <PressableText
-                    onPress={() => resendEmail(triggerTimer)}
-                    disabled={!activeResend}
-                    style={{ opacity: !activeResend ? 0.65 : 1 }}
-                >
-                    <ResendText resendStatus={resendStatus}>{resendStatus}</ResendText>
-                </PressableText>
-            </RowContainer>
+    <StyledView {...props}>
+      <RowContainer>
+        <SmallText>Did you not receive the email?</SmallText>
+        <PressableText
+          onPress={() => resendEmail(triggerTimer)}
+          disabled={!activeResend}
+          style={{ opacity: !activeResend ? 0.65 : 1 }}
+        >
+          <ResendText resendStatus={resendStatus}>{resendStatus}</ResendText>
+        </PressableText>
+      </RowContainer>
 
-            {!activeResend && (
-                <SmallText>
-                    in <SmallText style={{ fontWeight: 'bold' }}>{timeLeft || targetTime}</SmallText> second(s)
-                </SmallText>
-            )}
-        </StyledView>
-  )
-}
+      {!activeResend && (
+        <SmallText>
+          in{" "}
+          <SmallText style={{ fontWeight: "bold" }}>
+            {timeLeft || targetTime}
+          </SmallText>{" "}
+          second(s)
+        </SmallText>
+      )}
+    </StyledView>
+  );
+};
 
-export default ResendTimer
+export default ResendTimer;

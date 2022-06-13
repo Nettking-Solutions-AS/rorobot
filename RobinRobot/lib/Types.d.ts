@@ -15,9 +15,7 @@ export type GlobalState = {
   currentUser?: User;
 };
 
-export type DispatchAction =
-  | "SET_STATE"
-  | "SET_CURRENT_USER";
+export type DispatchAction = "SET_STATE" | "SET_CURRENT_USER";
 
 export type DispatchObject = {
   type: DispatchAction;
