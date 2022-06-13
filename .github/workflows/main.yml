@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
@@ -15,22 +13,27 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  install-lint-test:
-    # The type of runner that the job will run on
+  frontend-checks:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Install
-        run: rm -rf node_modules && yarn install --frozen-lockfile
+        run: cd RobinRobot && rm -rf node_modules && yarn install --frozen-lockfile
 
       - name: Prettier
-        run: yarn ci-prettier
+        run: cd RobinRobot && yarn ci-prettier
 
       - name: Lint
-        run: yarn ci-lint
+        run: cd RobinRobot && yarn ci-lint
+  api-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: cd RobinServer && rm -rf node_modules && yarn install --frozen-lockfile
 
-      - name: Test
-        run: yarn ci-test
+      - name: Prettier
+        run: cd RobinServer && yarn ci-prettier
+
+      - name: Lint
+        run: cd RobinServer && yarn ci-lint

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   FormControl, Text, Input, WarningOutlineIcon, Icon
 } from "native-base";
@@ -6,62 +6,62 @@ import firebase from '../../firebase/Config'
 import { validateEmail, validateName, validatePassword } from '../../lib/Validation'
 import { Error } from "../../lib/Types.d";
 import MainContainer from "../Containers/MainContainer";
-import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
+import KeyboardAvoidingContainer from "../Containers/KeyboardAvoidingContainer";
 import RegularText from "../Texts/RegularText";
 import RegularButton from "../Buttons/RegularButton";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
 import MsgBox from '../Texts/MsgBox'
 
-const Registration = ({ navigation }: { navigation:any}) => {
-  const [message, setMessage] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [name, setName] = useState('')
+const Registration = ({ navigation }: { navigation: any }) => {
+  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [errors, setErrors] = useState<Error[]>([]);
   const [show, setShow] = useState(false)
 
   const getErrorsByType = (type: string) =>
-  errors.filter((e) => e.type === type);
+    errors.filter((e) => e.type === type);
 
   const onRegisterPress = () => {
     const validationErrors = [
       ...validateEmail(email),
       ...validatePassword(password, confirmPassword),
-      ...validateName(name)
+      ...validateName(name),
     ];
-  
+
     setErrors(validationErrors);
     if (validationErrors.length === 0) {
       firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        if (!response.user) {
-          throw new Error('The user is not defined')
-        }
-        const { uid } = response.user
-        const data = {
-          id: uid,
-          email,
-          name,
-          role: 'customer'
-        }
-        const usersRef = firebase.firestore().collection('users')
-        usersRef
-          .doc(uid)
-          .set(data)
-          .catch((error) => {
-            setMessage('Feilet: ' + error.message)
-          })
-      })
-      .catch((error) => {
-        setMessage('Feilet: ' + error.message)
-      })
-      navigation.navigate('MyExchanges')
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((response) => {
+          if (!response.user) {
+            throw new Error("The user is not defined");
+          }
+          const { uid } = response.user;
+          const data = {
+            id: uid,
+            email,
+            name,
+            role: "customer",
+          };
+          const usersRef = firebase.firestore().collection("users");
+          usersRef
+            .doc(uid)
+            .set(data)
+            .catch((error) => {
+              setMessage("Feilet: " + error.message);
+            });
+        })
+        .catch((error) => {
+          setMessage("Feilet: " + error.message);
+        });
+      navigation.navigate("MyExchanges");
     }
-  }
+  };
 
   return (
     <MainContainer>
@@ -184,9 +184,14 @@ const Registration = ({ navigation }: { navigation:any}) => {
           </FormControl.ErrorMessage>
         </FormControl>
 
-        <RegularButton style={{ marginTop: 25 }} onPress={onRegisterPress}>Register</RegularButton>
-    
-        <PressableText style={{ paddingVertical: 15 }} onPress={() => navigation.navigate('Login')}>
+        <RegularButton style={{ marginTop: 25 }} onPress={onRegisterPress}>
+          Register
+        </RegularButton>
+
+        <PressableText
+          style={{ paddingVertical: 15 }}
+          onPress={() => navigation.navigate("Login")}
+        >
           Log in to an existing account
         </PressableText>
 
@@ -195,6 +200,6 @@ const Registration = ({ navigation }: { navigation:any}) => {
       </KeyboardAvoidingContainer>
     </MainContainer>
   );
-}
+};
 
-export default Registration
+export default Registration;

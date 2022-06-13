@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 // styled components
-import styled from 'styled-components/native'
-import { colors } from '../colors'
-const { primary } = colors
+import styled from "styled-components/native";
+import { colors } from "../colors";
+const { primary } = colors;
 
 const StyledView = styled.View`
     flex: 1;
@@ -13,7 +13,7 @@ const StyledView = styled.View`
 `
 
 const MainContainer = (props) => {
-  return <StyledView {...props}>{ props.children }</StyledView>
-}
+  return <StyledView {...props}>{props.children}</StyledView>;
+};
 
-export default MainContainer
+export default MainContainer;

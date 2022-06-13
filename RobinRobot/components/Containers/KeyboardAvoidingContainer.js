@@ -1,17 +1,25 @@
-import React from 'react'
+import React from "react";
 
-import { KeyboardAvoidingView, Keyboard, ScrollView, Pressable, Platform } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  Keyboard,
+  ScrollView,
+  Pressable,
+  Platform,
+} from "react-native";
 
 const KeyboardAvoidingContainer = (props) => {
-  return (<KeyboardAvoidingView
-        style={{ flex: 1, backgroundColor: 'transparent' }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={60}
+  return (
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: "transparent" }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={60}
     >
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <Pressable onPress={Keyboard.dismiss}>{props.children}</Pressable>
-        </ScrollView>
-    </KeyboardAvoidingView>)
-}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Pressable onPress={Keyboard.dismiss}>{props.children}</Pressable>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
 
-export default KeyboardAvoidingContainer
+export default KeyboardAvoidingContainer;

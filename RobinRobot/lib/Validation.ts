@@ -76,7 +76,7 @@ export const validateAPIKey = (APIKey: string): Error[] => {
   if (APIKey.length === 0) {
     validationErrors.push({
       type: "APIKey",
-      message: "You need to provide a valid API key"
+      message: "You need to provide a valid API key",
     });
   }
   return validationErrors;
@@ -87,7 +87,7 @@ export const validateAPISecret = (APISecret: string): Error[] => {
   if (APISecret.length === 0) {
     validationErrors.push({
       type: "APISecret",
-      message: "You need to provide a valid API secret key"
+      message: "You need to provide a valid API secret key",
     });
   }
   return validationErrors;
@@ -98,7 +98,7 @@ export const validateExchange = (APISecret: string): Error[] => {
   if (APISecret.length === 0) {
     validationErrors.push({
       type: "Exchange",
-      message: "You need to enter a Exchange"
+      message: "You need to enter a Exchange",
     });
   }
   return validationErrors;

@@ -5,16 +5,16 @@ import {
 import { useState } from "react";
 import firebase from "../../firebase/Config";
 import { Error } from "../../lib/Types";
-import { validateEmail, validatePassword } from '../../lib/Validation';
+import { validateEmail, validatePassword } from "../../lib/Validation";
 import MainContainer from "../Containers/MainContainer";
-import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
+import KeyboardAvoidingContainer from "../Containers/KeyboardAvoidingContainer";
 import RegularText from "../Texts/RegularText";
 import RegularButton from "../Buttons/RegularButton";
-import RowContainer from '../Containers/RowContainer'
+import RowContainer from "../Containers/RowContainer";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
 
-const Login = ({ navigation }: { navigation: any}) => {
+const Login = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Error[]>([]);
@@ -127,13 +127,16 @@ const Login = ({ navigation }: { navigation: any}) => {
         </RegularButton>
 
         <RowContainer>
-          <PressableText onPress={() => navigation.navigate('Registration')}>Create new account</PressableText>
-          <PressableText onPress={() => navigation.navigate('ForgotPassword')}>Forgot password</PressableText>
+          <PressableText onPress={() => navigation.navigate("Registration")}>
+            Create new account
+          </PressableText>
+          <PressableText onPress={() => navigation.navigate("ForgotPassword")}>
+            Forgot password
+          </PressableText>
         </RowContainer>
-        
       </KeyboardAvoidingContainer>
     </MainContainer>
   );
-}
+};
 
 export default Login;

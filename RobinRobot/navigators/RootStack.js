@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 // React Navigation
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 // styled components
-import { colors } from '../components/colors'
+import { colors } from "../components/colors";
 
 // Screens
 import Login from '../components/Pages/Login'
@@ -16,9 +16,9 @@ import ForgotPassword from '../components/Pages/ForgotPassword'
 import Dashboard from '../screens/Dashboard'
 import Avatar from '../components/Buttons/Avatar'
 
-const { accent, secondary, darkGray } = colors
+const { accent, secondary, darkGray } = colors;
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 const RootStack = () => {
   return (
@@ -98,7 +98,7 @@ const RootStack = () => {
             />
         </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default RootStack
+export default RootStack;
