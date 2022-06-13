@@ -1,19 +1,18 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from "react";
-import { ActivityIndicator } from "react-native";
+import React, { useState } from 'react'
+import { ActivityIndicator } from 'react-native'
 
-import { colors } from "../components/colors";
+import { colors } from '../colors'
 
 // custom components
-import MainContainer from "../components/Containers/MainContainer";
-import KeyboardAvoidingContainer from "../components/Containers/KeyboardAvoidingContainer";
-import RegularText from "../components/Texts/RegularText";
-import RegularButton from "../components/Buttons/RegularButton";
-import IconHeader from "../components/Icons/IconHeader";
-import StyledCodeInput from "../components/Inputs/StyledCodeInput";
-import ResendTimer from "../components/Timers/ResendTimer";
-import MessageModal from "../components/Modals/MessageModal";
-const { primary, secondary, lightGray } = colors;
+import MainContainer from '../Containers/MainContainer'
+import KeyboardAvoidingContainer from '../Containers/KeyboardAvoidingContainer'
+import RegularText from '../Texts/RegularText'
+import RegularButton from '../Buttons/RegularButton'
+import IconHeader from '../Icons/IconHeader'
+import StyledCodeInput from '../Inputs/StyledCodeInput'
+import ResendTimer from '../Timers/ResendTimer'
+import MessageModal from '../Modals/MessageModal'
+const { primary, secondary, lightGray } = colors
 
 const EmailVerification = ({ navigation }) => {
   // code input
@@ -24,9 +23,9 @@ const EmailVerification = ({ navigation }) => {
   const [verifying, setVerifying] = useState(false);
 
   // resending email
-  const [activeResend, setActiveResend] = useState(false);
-  const [resendStatus, setResendStatus] = useState(" Send på ny");
-  const [resendingEmail, setResendingEmail] = useState(false);
+  const [activeResend, setActiveResend] = useState(false)
+  const [resendStatus, setResendStatus] = useState(' Resend')
+  const [resendingEmail, setResendingEmail] = useState(false)
 
   // modal
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,28 +34,23 @@ const EmailVerification = ({ navigation }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [buttonText, setButtonText] = useState("");
 
-  const moveTo = (screen, payload) => {
-    navigation.navigate(screen, { ...payload });
-  };
-
   const buttonHandler = () => {
-    if (modalMessageType === "success") {
-      // do something - dashboard
-      moveTo("Dashboard");
+    if (modalMessageType === 'success') {
+      navigation.navigate('Dashboard')
     }
 
     setModalVisible(false);
   };
 
-  const showModal = (type, headerText, message, buttonText) => {
-    setModalMessageType(type);
-    setHeaderText(headerText);
-    setModalMessage(message);
-    setButtonText(buttonText);
-    setModalVisible(true);
-  };
+  const showModal = (type: React.SetStateAction<string>, headerText: React.SetStateAction<string>, message: React.SetStateAction<string>, buttonText: React.SetStateAction<string>) => {
+    setModalMessageType(type)
+    setHeaderText(headerText)
+    setModalMessage(message)
+    setButtonText(buttonText)
+    setModalVisible(true)
+  }
 
-  const resendEmail = async (triggerTimer) => {
+  const resendEmail = async (triggerTimer: () => void) => {
     try {
       setResendingEmail(true);
 
@@ -98,9 +92,9 @@ const EmailVerification = ({ navigation }) => {
   };
 
   return (
-    <MainContainer>
-      <KeyboardAvoidingContainer>
-        <IconHeader name="lock-open" style={{ marginBottom: 30 }} />
+      <MainContainer>
+        <KeyboardAvoidingContainer>
+            <IconHeader name="lock-open" style={{ marginBottom: 30 }} color={undefined} />
 
         <RegularText style={{ textAlign: "center" }}>
           Fill in the code sent to your email
@@ -134,13 +128,13 @@ const EmailVerification = ({ navigation }) => {
           </RegularButton>
         )}
 
-        <ResendTimer
-          activeResend={activeResend}
-          setActiveResend={setActiveResend}
-          resendStatus={resendStatus}
-          resendingEmail={resendingEmail}
-          resendEmail={resendEmail}
-        />
+            <ResendTimer
+              activeResend={activeResend}
+              setActiveResend={setActiveResend}
+              resendStatus={resendStatus}
+              resendingEmail={resendingEmail}
+              resendEmail={resendEmail} targetTimeInSeconds={undefined}            
+            />
 
         <MessageModal
           modalVisible={modalVisible}
