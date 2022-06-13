@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   FormControl, Text, Input, WarningOutlineIcon, Icon
 } from "native-base";
@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { Error } from "../../lib/Types.d";
 import { validateEmail } from '../../lib/Validation'
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
+import { NavigationProp } from "@react-navigation/native";
 
 // custom components
 import MainContainer from '../Containers/MainContainer'
@@ -15,7 +16,7 @@ import RegularButton from '../Buttons/RegularButton'
 import IconHeader from '../Icons/IconHeader'
 import MsgBox from '../Texts/MsgBox'
 
-const ForgotPassword = ({ navigation }: { navigation: any }) => {
+const ForgotPassword = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const [errors, setErrors] = useState<Error[]>([]);
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')

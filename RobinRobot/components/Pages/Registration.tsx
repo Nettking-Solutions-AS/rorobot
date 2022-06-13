@@ -3,6 +3,7 @@ import {
   FormControl, Text, Input, WarningOutlineIcon, Icon
 } from "native-base";
 import firebase from '../../firebase/Config'
+import { NavigationProp } from "@react-navigation/native";
 import { validateEmail, validateName, validatePassword } from '../../lib/Validation'
 import { Error } from "../../lib/Types.d";
 import MainContainer from "../Containers/MainContainer";
@@ -13,7 +14,7 @@ import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
 import MsgBox from '../Texts/MsgBox'
 
-const Registration = ({ navigation }: { navigation: any }) => {
+const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

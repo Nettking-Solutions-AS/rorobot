@@ -13,8 +13,9 @@ import RegularButton from "../Buttons/RegularButton";
 import RowContainer from "../Containers/RowContainer";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
+import { NavigationProp } from "@react-navigation/native";
 
-const Login = ({ navigation }: { navigation: any }) => {
+const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Error[]>([]);

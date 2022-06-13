@@ -8,7 +8,6 @@ import { Error } from "../../lib/Types.d";
 import { validateAPIKey, validateName, validateAPISecret, validateExchange } from '../../lib/Validation'
 
 // styled components
-import CreateAccount from "../Texts/CreateAccount";
 import ConnectButton from "../Buttons/Connect";
 const { primary, secondary, black } = colors
 import { db, auth } from '../../firebase/Config'
@@ -22,6 +21,8 @@ import PressableText from '../Texts/PressableText';
 import styled from 'styled-components/native'
 import { ScreenHeight } from '../../components/shared'
 const { darkGray } = colors
+
+import { NavigationProp } from "@react-navigation/native";
 
 const TopBg = styled.View`
     background-color: ${darkGray};
@@ -53,7 +54,7 @@ const CardSection = styled.View`
     align-items: flex-start;
 `
 
-const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
+const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const [exchange, setExchange] = React.useState('');
   const [APIKey, setAPIKey] = React.useState('');
   const [APISecret, setAPISecret] = React.useState('');
@@ -75,7 +76,7 @@ const ConnectExchange = ({ navigation, ...props }: { navigation:any }) => {
     setErrors(validationErrors);
     if (validationErrors.length === 0) {
       const docRef = db.collection('users').doc(auth.currentUser?.uid);
-      const res = await docRef.set({
+      await docRef.set({
         Exchange: exchange,
         ExchangeName: name,
         APIKey: APIKey,
