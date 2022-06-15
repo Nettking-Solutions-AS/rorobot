@@ -120,19 +120,19 @@ export default function ScreenManager() {
         <NavigationContainer>
             <Drawer.Navigator
                 screenOptions={{
-                activeTintColor: '#e91e63',
-                itemStyle: { marginVertical: 5 },
+                    drawerActiveTintColor: '#e91e63',
+                    drawerItemStyle: { marginVertical: 5 },
                 }}
                 drawerContent={(props) => <CustomSidebarMenu {...props} />}>
                 <Drawer.Screen
-                name="Dashboard"
-                options={{ drawerLabel: 'Dashboard' }}
-                component={Dashboard}
+                    name="Dashboard"
+                    options={{ drawerLabel: 'Dashboard' }}
+                    component={Dashboard}
                 />
                 <Drawer.Screen
-                name="MyExchanges"
-                options={{ drawerLabel: 'My Exchanges' }}
-                component={ConnectExchange}
+                    name="MyExchanges"
+                    options={{ drawerLabel: 'My Exchanges' }}
+                    component={ConnectExchange}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
