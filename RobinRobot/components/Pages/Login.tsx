@@ -13,9 +13,12 @@ import RegularButton from "../Buttons/RegularButton";
 import RowContainer from "../Containers/RowContainer";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp } from "@react-navigation/native";
 
-const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
+export default function Login({
+  showRegistration,
+}: {
+  showRegistration: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Error[]>([]);
@@ -42,7 +45,6 @@ const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
                 // eslint-disable-next-line no-alert
                 alert("The user does not exist!")
               }
-              navigation.navigate('Dashboard')
             })
             .catch((error) => {
               // eslint-disable-next-line no-alert
@@ -71,7 +73,7 @@ const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
           isInvalid={getErrorsByType("email").length > 0}
         >
           <FormControl.Label>
-            <Text bold>Email</Text>
+            <Text bold style={{ color: '#fff' }}>Email</Text>
           </FormControl.Label>
 
           <Input
@@ -79,6 +81,7 @@ const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
             size={7}
             ml='4'
             color='cyan.300' />} 
+            color='#fff'
             placeholder='Email'
             height={12}
             fontSize={15}
@@ -96,14 +99,15 @@ const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
           isInvalid={getErrorsByType("password").length > 0}
         >
           <FormControl.Label mt={30}>
-            <Text bold>Password</Text>
+            <Text bold style={{ color: '#fff' }}>Password</Text>
           </FormControl.Label>
 
           <Input
             InputLeftElement={<Icon as={<MaterialIcons name='lock-open' />} 
             size={7}
             ml='4'
-            color='cyan.300' />} 
+            color='cyan.300' />}
+            color='#fff' 
             type={show ? 'text' : 'password'}
             InputRightElement={<Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />}
             size={7}
@@ -128,10 +132,10 @@ const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
         </RegularButton>
 
         <RowContainer>
-          <PressableText onPress={() => navigation.navigate("Registration")}>
+          <PressableText onPress={showRegistration}>
             Create new account
           </PressableText>
-          <PressableText onPress={() => navigation.navigate("ForgotPassword")}>
+          <PressableText onPress={showRegistration}>
             Forgot password
           </PressableText>
         </RowContainer>
@@ -139,5 +143,3 @@ const Login = ({ navigation }: { navigation: NavigationProp<any> }) => {
     </MainContainer>
   );
 };
-
-export default Login;
