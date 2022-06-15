@@ -6,7 +6,7 @@ import Registration from "../components/Pages/Registration";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import CustomSidebarMenu from './CustomSidebarMenu';
 import Dashboard from '../components/Pages/Dashboard';
 import ConnectExchange from '../components/Pages/MyExchanges';

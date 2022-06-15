@@ -1,15 +1,8 @@
 import React from "react";
-import { NavigationProp } from "@react-navigation/native";
-import { useGlobalState } from "../components/StateManagement/GlobalState";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { Heading } from "native-base";
 
-export default function Dashboard({
-  navigation,
-}: {
-  navigation: NavigationProp<any>;
-}) {
-  const { state } = useGlobalState();
+export default function Dashboard() {
 
   const styles = StyleSheet.create({
     container: {

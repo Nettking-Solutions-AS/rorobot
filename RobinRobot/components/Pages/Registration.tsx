@@ -203,4 +203,4 @@ export default function Registration({ showLogin }: { showLogin: () => void }) {
       </KeyboardAvoidingContainer>
     </MainContainer>
   );
-};
+}

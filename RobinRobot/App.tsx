@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { NativeBaseProvider, extendTheme } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import GlobalStateProvider from "./components/StateManagement/GlobalState";
 import ScreenManager from "./navigators/ScreenManager";
 

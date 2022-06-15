@@ -142,4 +142,4 @@ export default function Login({
       </KeyboardAvoidingContainer>
     </MainContainer>
   );
-};
+}
