@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node-dev --exit-child src/index.ts",
+    "dev": "ts-node-dev --exit-child src/binance/index.ts",
     "build": "tsc",
     "start": "node ./dist/index.js",
     "lint": "eslint \"**/*.{js,ts}\" --ignore-path=.prettierignore",
@@ -12,12 +12,16 @@
     "ci-prettier": "prettier --check ."
   },
   "dependencies": {
+    "@binance/connector": "^1.10.0",
+    "@types/react": "^18.0.13",
     "axios": "^0.27.2",
     "binance-api-node": "^0.11.40",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "node-cron": "^3.0.1",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
