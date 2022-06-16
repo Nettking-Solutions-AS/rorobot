@@ -134,6 +134,21 @@ export default function ScreenManager() {
                     options={{ drawerLabel: 'My Exchanges' }}
                     component={ConnectExchange}
                 />
+                <Drawer.Screen
+                    name="SmartTrading"
+                    options={{ drawerLabel: 'Smart Trading' }}
+                    component={ConnectExchange}
+                />
+                <Drawer.Screen
+                    name="TradingBots"
+                    options={{ drawerLabel: 'Trading Bots' }}
+                    component={ConnectExchange}
+                />
+                <Drawer.Screen
+                    name="Subscription"
+                    options={{ drawerLabel: 'Subscription' }}
+                    component={ConnectExchange}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     ) : (
