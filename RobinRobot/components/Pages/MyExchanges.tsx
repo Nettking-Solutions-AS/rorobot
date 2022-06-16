@@ -97,7 +97,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                 isRequired
               >
                 <FormControl.Label>
-                  <Text bold>Choose exchange</Text>
+                  <Text bold style={{ color: '#fff' }}>Choose exchange</Text>
                 </FormControl.Label>
 
                 <Select 
@@ -108,6 +108,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                   height={12}
                   fontSize={15}
                   borderRadius={10}
+                  color='#fff'
                   _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />
@@ -127,7 +128,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                 isInvalid={getErrorsByType("name").length > 0}
               >
                 <FormControl.Label mt={25}>
-                  <Text bold>Name</Text>
+                  <Text bold style={{ color: '#fff' }}>Name</Text>
                 </FormControl.Label>
 
                 <Input 
@@ -136,6 +137,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                   height={12}
                   fontSize={15}
                   borderRadius={10}
+                  color='#fff'
                   onChangeText={(text:string) => setName(text)}
                 />
 
@@ -149,7 +151,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                 isInvalid={getErrorsByType("APIKey").length > 0}
               >
                 <FormControl.Label mt={25}>
-                  <Text bold>API key</Text>
+                  <Text bold style={{ color: '#fff' }}>API key</Text>
                 </FormControl.Label>
 
                 <Input 
@@ -157,6 +159,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                   height={12}
                   fontSize={15}
                   borderRadius={10}
+                  color='#fff'
                   onChangeText={(text:string) => setAPIKey(text)}
                 />
 
@@ -170,7 +173,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                 isInvalid={getErrorsByType("APISecret").length > 0}
               >
                 <FormControl.Label mt={25}>
-                  <Text bold>API secret</Text>
+                  <Text bold style={{ color: '#fff' }}>API secret</Text>
                 </FormControl.Label>
 
                 <Input 
@@ -178,6 +181,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                   height={12}
                   fontSize={15}
                   borderRadius={10}
+                  color='#fff'
                   onChangeText={(text:string) => setAPISecret(text)}
                 />
 
@@ -190,7 +194,7 @@ const ConnectExchange = ({ navigation }: { navigation: NavigationProp<any> }) =>
                 Connect
               </ConnectButton>
 
-              <Text alignSelf='center'>Don't have an account with Binance?</Text>
+              <Text alignSelf='center' color='#fff'>Don't have an account with Binance?</Text>
               <PressableText onPress={() => { Linking.openURL('https://binance.com')}}>
                 Create an account with Binance
               </PressableText>
