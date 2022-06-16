@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from '../firebase/Config'
 import { useGlobalState } from "../components/StateManagement/GlobalState";
-import Registration from "../components/Pages/Registration";
-import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
 import { View, TouchableOpacity } from 'react-native';
@@ -11,12 +9,12 @@ import CustomSidebarMenu from './CustomSidebarMenu';
 import Dashboard from '../components/Pages/Dashboard';
 import ConnectExchange from '../components/Pages/MyExchanges';
 import UserRegistration from "../screens/UserRegistration";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ScreenManager() {
     const [loading, setLoading] = useState(true);
     const { state, dispatch } = useGlobalState();
 
-    const Stack = createStackNavigator();
     const Drawer = createDrawerNavigator();
   
     useEffect(() => {
@@ -58,96 +56,86 @@ export default function ScreenManager() {
         );
     };
       
-    function firstScreenStack({ navigation }) {
-        return (
-          <Stack.Navigator initialRouteName="Registration">
-            <Stack.Screen
-              name="Registration"
-              component={Registration}
-              options={{
-                title: 'Registration', //Set Header Title
-                headerLeft: () => (
-                  <NavigationDrawerStructure navigationProps={navigation} />
-                ),
-                headerStyle: {
-                  backgroundColor: '#f4511e', //Set Header color
-                },
-                headerTintColor: '#fff', //Set Header text color
-                headerTitleStyle: {
-                  fontWeight: 'bold', //Set Header text style
-                },
-              }}
-            />
-          </Stack.Navigator>
-        );
-    }
-      
-    function secondScreenStack({ navigation }) {
-        return (
-          <Stack.Navigator
-            initialRouteName="Dashboard"
-            screenOptions={{
-              headerLeft: () => (
-                <NavigationDrawerStructure navigationProps={navigation} />
-              ),
-              headerStyle: {
-                backgroundColor: '#f4511e', //Set Header color
-              },
-              headerTintColor: '#fff', //Set Header text color
-              headerTitleStyle: {
-                fontWeight: 'bold', //Set Header text style
-              },
-            }}>
-            <Stack.Screen
-              name="Dashboard"
-              component={Dashboard}
-              options={{
-                title: 'Dashboard', //Set Header Title
-              }}
-            />
-            <Stack.Screen
-              name="MyExchanges"
-              component={ConnectExchange}
-              options={{
-                title: 'Connect Exchange', //Set Header Title
-              }}
-            />
-          </Stack.Navigator>
-        );
-    }
-
     return state.currentUser ? (
         <NavigationContainer>
             <Drawer.Navigator
                 screenOptions={{
-                    drawerActiveTintColor: '#e91e63',
+                    drawerActiveTintColor: '#29C5F6',
                     drawerItemStyle: { marginVertical: 5 },
+                    drawerLabelStyle: {
+                      color: '#fff'
+                    }
                 }}
                 drawerContent={(props) => <CustomSidebarMenu {...props} />}>
                 <Drawer.Screen
                     name="Dashboard"
-                    options={{ drawerLabel: 'Dashboard' }}
                     component={Dashboard}
+                    options={{ 
+                      drawerLabel: 'Dashboard',
+                      drawerIcon: ({size}) => (
+                        <Ionicons
+                           name="desktop-outline"
+                           size={size}
+                           color={'#ccc'}
+                        />
+                     ),
+                    }}
                 />
                 <Drawer.Screen
                     name="MyExchanges"
-                    options={{ drawerLabel: 'My Exchanges' }}
                     component={ConnectExchange}
+                    options={{ 
+                      drawerLabel: 'My Exchanges',
+                      drawerIcon: ({size}) => (
+                        <Ionicons
+                           name="list-outline"
+                           size={size}
+                           color={'#ccc'}
+                        />
+                     ),
+                    }}
                 />
                 <Drawer.Screen
                     name="SmartTrading"
-                    options={{ drawerLabel: 'Smart Trading' }}
                     component={ConnectExchange}
+                    options={{ 
+                      drawerLabel: 'Smart Trading',
+                      drawerIcon: ({size}) => (
+                        <Ionicons
+                           name="analytics-outline"
+                           size={size}
+                           color={'#ccc'}
+                        />
+                     ),
+                    }}
                 />
                 <Drawer.Screen
                     name="TradingBots"
-                    options={{ drawerLabel: 'Trading Bots' }}
                     component={ConnectExchange}
+                    options={{ 
+                      drawerLabel: 'Trading Bots',
+                      drawerIcon: ({size}) => (
+                        <Ionicons
+                           name="rocket-outline"
+                           size={size}
+                           color={'#ccc'}
+                        />
+                     ),
+                    }} 
                 />
                 <Drawer.Screen
                     name="Subscription"
-                    options={{ drawerLabel: 'Subscription' }}
                     component={ConnectExchange}
+                    options={{ 
+                      drawerLabel: 'Subscription',
+                      drawerIcon: ({size}) => (
+                        <Ionicons
+                           name="card-outline"
+                           size={size}
+                           color={'#ccc'}
+                        />
+                     ),
+                    }}
                 />
             </Drawer.Navigator>
         </NavigationContainer>

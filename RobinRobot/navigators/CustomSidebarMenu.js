@@ -16,15 +16,15 @@ const CustomSidebarMenu = (props) => {
   const proileImage = 'react_logo.png';
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.imageBackground}>
       {/*Top Large Image */}
       <Image
         source={{ uri: BASE_PATH + proileImage }}
         style={styles.sideMenuProfileIcon}
       />
-      <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-       
+      <DrawerContentScrollView {...props} style={styles.itemsBackground}>
+        <DrawerItemList {...props}/>
+
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 100 / 2,
     alignSelf: 'center',
+    backgroundColor: '#222831',
   },
   iconStyle: {
     width: 15,
@@ -48,6 +49,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  itemsBackground: {
+    backgroundColor: '#222831',
+  },
+  imageBackground: {
+    backgroundColor: '#222831',
+    flex: 1,
+  }
 });
 
 export default CustomSidebarMenu;
