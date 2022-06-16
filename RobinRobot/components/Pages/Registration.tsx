@@ -3,7 +3,6 @@ import {
   FormControl, Text, Input, WarningOutlineIcon, Icon
 } from "native-base";
 import firebase from '../../firebase/Config'
-import { NavigationProp } from "@react-navigation/native";
 import { validateEmail, validateName, validatePassword } from '../../lib/Validation'
 import { Error } from "../../lib/Types.d";
 import MainContainer from "../Containers/MainContainer";
@@ -14,7 +13,7 @@ import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
 import MsgBox from '../Texts/MsgBox'
 
-const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
+export default function Registration({ showLogin }: { showLogin: () => void }) {
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +59,6 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
         .catch((error) => {
           setMessage("Feilet: " + error.message);
         });
-      navigation.navigate("MyExchanges");
     }
   };
 
@@ -76,7 +74,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
           isInvalid={getErrorsByType("name").length > 0}
         >
           <FormControl.Label>
-            <Text bold>Full name</Text>
+            <Text bold style={{ color: '#fff' }}>Full name</Text>
           </FormControl.Label>
 
           <Input
@@ -84,6 +82,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
             size={7}
             ml='3'
             color='cyan.300' />} 
+            color='#fff'
             placeholder='Name'
             height={12}
             fontSize={15}
@@ -101,7 +100,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
           isInvalid={getErrorsByType("email").length > 0}
         >
           <FormControl.Label mt={25}>
-            <Text bold>Email</Text>
+            <Text bold style={{ color: '#fff' }}>Email</Text>
           </FormControl.Label>
 
           <Input
@@ -109,6 +108,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
             size={7}
             ml='4'
             color='cyan.300' />} 
+            color='#fff'
             placeholder='Email'
             height={12}
             fontSize={15}
@@ -126,7 +126,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
           isInvalid={getErrorsByType("password").length > 0}
         >
           <FormControl.Label mt={30}>
-            <Text bold>Password</Text>
+            <Text bold style={{ color: '#fff' }}>Password</Text>
           </FormControl.Label>
 
           <Input
@@ -134,6 +134,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
             size={7}
             ml='4'
             color='cyan.300' />} 
+            color='#fff'
             type={show ? 'text' : 'password'}
             InputRightElement={<Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />}
             size={7}
@@ -158,7 +159,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
           isInvalid={getErrorsByType("confirmPassword").length > 0}
         >
           <FormControl.Label mt={30}>
-            <Text bold>Confirm password</Text>
+            <Text bold style={{ color: '#fff' }}>Confirm password</Text>
           </FormControl.Label>
 
           <Input
@@ -166,6 +167,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
             size={7}
             ml='4'
             color='cyan.300' />} 
+            color='#fff'
             type={show ? 'text' : 'password'}
             InputRightElement={<Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />}
             size={7}
@@ -191,7 +193,7 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
 
         <PressableText
           style={{ paddingVertical: 15 }}
-          onPress={() => navigation.navigate("Login")}
+          onPress={showLogin}
         >
           Log in to an existing account
         </PressableText>
@@ -201,6 +203,4 @@ const Registration = ({ navigation }: { navigation: NavigationProp<any> }) => {
       </KeyboardAvoidingContainer>
     </MainContainer>
   );
-};
-
-export default Registration;
+}
