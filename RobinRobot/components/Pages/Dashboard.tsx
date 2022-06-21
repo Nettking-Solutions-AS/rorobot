@@ -1,10 +1,22 @@
-import * as React from 'react';
-import { View, Text } from "react-native";
+import axios from "axios"
+import React, { useState, useEffect } from "react";
+import { useGlobalState } from "../StateManagement/GlobalState";
 
 export default function Dashboard() {
-   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{fontSize:16,fontWeight:'700'}}>Dashboard</Text>
-    </View>
-   );
- }
+  const { state } = useGlobalState();
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    const uri = "https://robinserver.onrender.com";
+    const response = await axios.post(uri, { userID: state.currentUser.id });
+    setData(response.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    
+  )
+}

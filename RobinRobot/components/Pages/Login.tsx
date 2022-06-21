@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  FormControl, Text, Input, WarningOutlineIcon, Icon
+  FormControl, Text, Input, WarningOutlineIcon, Icon, Button
 } from "native-base";
 import { useState } from "react";
 import firebase from "../../firebase/Config";
@@ -13,6 +13,7 @@ import RegularButton from "../Buttons/RegularButton";
 import RowContainer from "../Containers/RowContainer";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from '@expo/vector-icons'
+import { useGlobalState } from "../StateManagement/GlobalState";
 
 export default function Login({
   showRegistration,
@@ -60,6 +61,7 @@ export default function Login({
 
   const getErrorsByType = (type: string) =>
     errors.filter((e) => e.type === type);
+    const { state } = useGlobalState();
 
   return (
     <MainContainer>
