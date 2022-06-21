@@ -29,6 +29,8 @@ export default function Dashboard() {
     const uri = "https://robinserver.onrender.com";
     const { data: response } = await axios.post<Data>(uri, { userID: state.currentUser.id });
 
+    setData(response.result.balances)
+
     let entries = response.result.balances.filter(entity => entity.free > 0 || entity.locked > 0).map(entry => ({ ...entry, amount: ((entry.free * 10 + entry.locked * 10) / 10).toFixed(8) }))
 
     entries = entries.sort((a, b) => a.amount > b.amount ? 1 : -1)

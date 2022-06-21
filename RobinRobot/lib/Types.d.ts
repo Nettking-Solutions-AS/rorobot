@@ -9,6 +9,8 @@ export type User = {
   name: string;
   email: string;
   role: UserRole;
+  APIKey: string;
+  APISecret: string;
 };
 
 export type GlobalState = {
@@ -26,3 +28,4 @@ export type Error = {
   type: string;
   message: string;
 };
+
