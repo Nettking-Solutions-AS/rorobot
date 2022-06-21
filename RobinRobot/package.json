@@ -15,7 +15,6 @@
     "ci-prettier": "prettier --check . --ignore-path=.gitignore"
   },
   "dependencies": {
-    "@binance/connector": "^1.10.0",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.3.1",
