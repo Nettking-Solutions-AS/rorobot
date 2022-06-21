@@ -1,6 +1,6 @@
 {
   "name": "robinrobot",
-  "homepage": "http://rorobot.io",
+  "homepage": "https://rorobot.io",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
