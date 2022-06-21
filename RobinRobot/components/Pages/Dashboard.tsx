@@ -1,8 +1,7 @@
 import axios from "axios"
 import React, { useState, useEffect, useCallback } from "react";
-import { ScrollView, Text, StyleSheet } from "react-native";
-import { Table, TableWrapper, Row, Col, Cell, Cols, Rows } from "react-native-table-component"
-
+import { ScrollView, StyleSheet } from "react-native";
+import { Table, Row, Rows } from "react-native-table-component"
 import { useGlobalState } from "../StateManagement/GlobalState";
 
 interface Balance {
@@ -21,7 +20,6 @@ export default function Dashboard() {
   const { state } = useGlobalState();
   const [data, setData] = useState<Balance[]>([]);
   const [loading, setLoading] = useState(false)
-
 
   const fetchData = useCallback(async () => {
     setLoading(true)
