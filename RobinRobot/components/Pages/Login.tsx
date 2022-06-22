@@ -70,99 +70,95 @@ export default function Login({
 
   return (
     <MainContainer>
-      <KeyboardAvoidingContainer>
-        <RegularText style={{ marginBottom: 25 }}>
-          Fill in your account credentials
-        </RegularText>
+      <RegularText style={{ marginBottom: 25 }}>
+        Fill in your account credentials
+      </RegularText>
 
-        <FormControl isRequired isInvalid={getErrorsByType("email").length > 0}>
-          <FormControl.Label>
-            <Text bold style={{ color: "#fff" }}>
-              Email
-            </Text>
-          </FormControl.Label>
+      <FormControl isRequired isInvalid={getErrorsByType("email").length > 0}>
+        <FormControl.Label>
+          <Text bold style={{ color: "#fff" }}>
+            Email
+          </Text>
+        </FormControl.Label>
 
-          <Input
-            InputLeftElement={
-              <Icon
-                as={<MaterialIcons name="email" />}
-                size={7}
-                ml="4"
-                color="cyan.300"
-              />
-            }
-            color="#fff"
-            placeholder="Email"
-            height={12}
-            fontSize={15}
-            borderRadius={10}
-            onChangeText={(text: string) => setEmail(text)}
-          />
+        <Input
+          InputLeftElement={
+            <Icon
+              as={<MaterialIcons name="email" />}
+              size={7}
+              ml="4"
+              color="cyan.300"
+            />
+          }
+          color="#fff"
+          placeholder="Email"
+          height={12}
+          fontSize={15}
+          borderRadius={10}
+          onChangeText={(text: string) => setEmail(text)}
+        />
 
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            {getErrorsByType("email").map((e) => e.message)}
-          </FormControl.ErrorMessage>
-        </FormControl>
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          {getErrorsByType("email").map((e) => e.message)}
+        </FormControl.ErrorMessage>
+      </FormControl>
 
-        <FormControl
-          isRequired
-          isInvalid={getErrorsByType("password").length > 0}
-        >
-          <FormControl.Label mt={30}>
-            <Text bold style={{ color: "#fff" }}>
-              Password
-            </Text>
-          </FormControl.Label>
+      <FormControl
+        isRequired
+        isInvalid={getErrorsByType("password").length > 0}
+      >
+        <FormControl.Label mt={30}>
+          <Text bold style={{ color: "#fff" }}>
+            Password
+          </Text>
+        </FormControl.Label>
 
-          <Input
-            InputLeftElement={
-              <Icon
-                as={<MaterialIcons name="lock-open" />}
-                size={7}
-                ml="4"
-                color="cyan.300"
-              />
-            }
-            color="#fff"
-            type={show ? "text" : "password"}
-            InputRightElement={
-              <Icon
-                as={
-                  <MaterialIcons
-                    name={show ? "visibility" : "visibility-off"}
-                  />
-                }
-                size={7}
-                mr="3"
-                color="muted.400"
-                onPress={() => setShow(!show)}
-              />
-            }
-            height={12}
-            fontSize={15}
-            borderRadius={10}
-            placeholder="* * * * * * * *"
-            onChangeText={(text: string) => setPassword(text)}
-          />
+        <Input
+          InputLeftElement={
+            <Icon
+              as={<MaterialIcons name="lock-open" />}
+              size={7}
+              ml="4"
+              color="cyan.300"
+            />
+          }
+          color="#fff"
+          type={show ? "text" : "password"}
+          InputRightElement={
+            <Icon
+              as={
+                <MaterialIcons name={show ? "visibility" : "visibility-off"} />
+              }
+              size={7}
+              mr="3"
+              color="muted.400"
+              onPress={() => setShow(!show)}
+            />
+          }
+          height={12}
+          fontSize={15}
+          borderRadius={10}
+          placeholder="* * * * * * * *"
+          onChangeText={(text: string) => setPassword(text)}
+        />
 
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            {getErrorsByType("password").map((e) => e.message)}
-          </FormControl.ErrorMessage>
-        </FormControl>
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          {getErrorsByType("password").map((e) => e.message)}
+        </FormControl.ErrorMessage>
+      </FormControl>
 
-        <RegularButton onPress={onLoginPress} style={{ marginTop: 30 }}>
-          Log in
-        </RegularButton>
+      <RegularButton onPress={onLoginPress} style={{ marginTop: 30 }}>
+        Log in
+      </RegularButton>
 
-        <RowContainer>
-          <PressableText onPress={showRegistration}>
-            Create new account
-          </PressableText>
-          <PressableText onPress={showRegistration}>
-            Forgot password
-          </PressableText>
-        </RowContainer>
-      </KeyboardAvoidingContainer>
+      <RowContainer>
+        <PressableText onPress={showRegistration}>
+          Create new account
+        </PressableText>
+        <PressableText onPress={showRegistration}>
+          Forgot password
+        </PressableText>
+      </RowContainer>
     </MainContainer>
   );
 }
