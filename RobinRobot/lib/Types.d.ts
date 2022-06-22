@@ -29,3 +29,68 @@ export type Error = {
   message: string;
 };
 
+export interface Network {
+  network: string;
+  coin: string;
+  withdrawIntegerMultiple: string;
+  isDefault: boolean;
+  depositEnable: boolean;
+  withdrawEnable: boolean;
+  depositDesc: string;
+  withdrawDesc: string;
+  specialTips: string;
+  specialWithdrawTips: string;
+  name: string;
+  resetAddressStatus: boolean;
+  addressRegex: string;
+  addressRule: string;
+  memoRegex: string;
+  withdrawFee: string;
+  withdrawMin: string;
+  withdrawMax: string;
+  minConfirm: number;
+  unLockConfirm: number;
+  sameAddress: boolean;
+  estimatedArrivalTime: number;
+}
+
+export interface Coin {
+  coin: string;
+  depositAllEnable: boolean;
+  withdrawAllEnable: boolean;
+  name: string;
+  free: string;
+  locked: string;
+  freeze: string;
+  withdrawing: string;
+  ipoing: string;
+  ipoable: string;
+  storage: string;
+  isLegalMoney: boolean;
+  trading: boolean;
+  networkList: Network[];
+}
+
+export interface Stat {
+  symbol: string;
+  priceChange: string;
+  priceChangePercent: string;
+  weightedAvgPrice: string;
+  prevClosePrice: string;
+  lastPrice: string;
+  lastQty: string;
+  bidPrice: string;
+  bidQty: string;
+  askPrice: string;
+  askQty: string;
+  openPrice: string;
+  highPrice: string;
+  lowPrice: string;
+  volume: string;
+  quoteVolume: string;
+  openTime: number;
+  closeTime: number;
+  firstId: number;
+  lastId: number;
+  count: number;
+}
