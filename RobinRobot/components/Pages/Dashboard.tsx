@@ -31,7 +31,7 @@ export default function Dashboard() {
   const amount = () => (
     <HStack space={1}>
       <Center mb="3" mr="2">
-        <Text bold style={styles.headerText}>
+        <Text bold style={styles.headerTextSecondItem}>
           Amount
         </Text>
       </Center>
@@ -51,6 +51,19 @@ export default function Dashboard() {
       <Center mb="3" mr="2">
         <Text bold style={styles.headerTextFirstItem}>
           Token
+        </Text>
+      </Center>
+      <Center>
+        <Octicons name="unfold" size={22} style={styles.sortIcon} />
+      </Center>
+    </HStack>
+  );
+
+  const price = () => (
+    <HStack space={1}>
+      <Center mb="3" mr="2">
+        <Text bold style={styles.headerTextThirdItem}>
+          Price
         </Text>
       </Center>
       <Center>
@@ -124,7 +137,7 @@ export default function Dashboard() {
         ) : (
           <Table>
             <Row
-              data={[token(), amount(), "Last price"]}
+              data={[token(), amount(), price()]}
               style={styles.tableHeader}
               textStyle={[styles.headerText]}
             />
@@ -179,9 +192,13 @@ const styles = StyleSheet.create({
   headerTextFirstItem: {
     color: "#fff",
   },
-  headerText: {
+  headerTextSecondItem: {
     color: "#fff",
     marginLeft: 10,
+  },
+  headerTextThirdItem: {
+    color: "#fff",
+    marginLeft: 20,
   },
   entry: {
     padding: 16,
