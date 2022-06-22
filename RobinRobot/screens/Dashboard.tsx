@@ -3,7 +3,6 @@ import { StyleSheet, SafeAreaView } from "react-native";
 import { Heading } from "native-base";
 
 export default function Dashboard() {
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
