@@ -65,9 +65,9 @@ export default function ScreenManager() {
           drawerLabelStyle: {
             color: "#fff",
           },
-          headerStyle: { backgroundColor: '#222831' },
+          headerStyle: { backgroundColor: "#222831" },
           headerTitleStyle: { color: "#fff" },
-          headerTintColor: "#fff"
+          headerTintColor: "#fff",
         }}
         drawerContent={(props) => <CustomSidebarMenu {...props} />}
       >
