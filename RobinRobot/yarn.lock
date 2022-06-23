@@ -1401,7 +1401,7 @@
   resolved "https://registry.yarnpkg.com/@expo/code-signing-certificates/-/code-signing-certificates-0.0.2.tgz#65cd615800e6724b54831c966dd1a90145017246"
   integrity sha512-vnPHFjwOqxQ1VLztktY+fYCfwvLzjqpzKn09rchcQE7Sdf0wtW5fFtIZBEFOOY5wasp8tXSnp627zrAwazPHzg==
   dependencies:
-    node-forge "^1.2.1"
+    node-forge "^1.3.1"
     nullthrows "^1.1.1"
 
 "@expo/config-plugins@4.1.5", "@expo/config-plugins@^4.0.14", "@expo/config-plugins@~4.1.4":
@@ -12471,12 +12471,7 @@ node-fetch@2.6.7, node-fetch@^2.2.0, node-fetch@^2.6.0, node-fetch@^2.6.1, node-
   dependencies:
     whatwg-url "^5.0.0"
 
-node-forge@0.10.0, node-forge@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.10.0.tgz#32dea2afb3e9926f02ee5ce8794902691a676bf3"
-  integrity sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==
-
-node-forge@^1, node-forge@^1.2.1, node-forge@^1.3.1:
+node-forge@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.3.1.tgz#be8da2af243b2417d5f646a770663a92b7e9ded3"
   integrity sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==
@@ -15611,14 +15606,14 @@ selfsigned@^1.10.7:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.14.tgz#ee51d84d9dcecc61e07e4aba34f229ab525c1574"
   integrity sha512-lkjaiAye+wBZDCBsu5BGi0XiLRxeUlsGod5ZP924CRSEoGuZAw/f7y9RKu28rwTfiHVhdavhB0qH0INV6P1lEA==
   dependencies:
-    node-forge "^0.10.0"
+    node-forge "^1.3.1"
 
 selfsigned@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-2.0.1.tgz#8b2df7fa56bf014d19b6007655fff209c0ef0a56"
   integrity sha512-LmME957M1zOsUhG+67rAjKfiWFox3SBxE/yymatMZsAx+oMrJ0YQ8AToOnyCm7xbeg2ep37IHLxdu0o2MavQOQ==
   dependencies:
-    node-forge "^1"
+    node-forge "^1.3.1"
 
 semver@7.0.0:
   version "7.0.0"
@@ -18102,7 +18097,7 @@ xdl@59.2.41:
     md5hex "1.0.0"
     minimatch "3.0.4"
     mv "2.1.1"
-    node-forge "0.10.0"
+    node-forge "^1.3.1"
     nullthrows "1.1.1"
     p-map "3.0.0"
     p-retry "4.1.0"
