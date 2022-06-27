@@ -14,7 +14,6 @@ import {
 } from "../../lib/Validation";
 import { Error } from "../../lib/Types.d";
 import MainContainer from "../Containers/MainContainer";
-import KeyboardAvoidingContainer from "../Containers/KeyboardAvoidingContainer";
 import RegularText from "../Texts/RegularText";
 import RegularButton from "../Buttons/RegularButton";
 import PressableText from "../Texts/PressableText";
