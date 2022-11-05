@@ -37,7 +37,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.4.0",
     "react-native": "^0.68.2",
-    "react-native-gesture-handler": "~2.2.1",
+    "react-native-gesture-handler": "~2.8.0",
     "react-native-ionicons": "^4.x",
     "react-native-paper": "^4.12.1",
     "react-native-reanimated": "^2.12.0",
