@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "../firebase/Config";
@@ -6,11 +7,12 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import "react-native-gesture-handler";
 import { View, TouchableOpacity } from "react-native";
 import CustomSidebarMenu from "./CustomSidebarMenu";
+import HODL from "../components/Pages/HODLComponent";
 import Dashboard from "../components/Pages/Dashboard";
 import ConnectExchange from "../components/Pages/MyExchanges";
 import UserRegistration from "../screens/UserRegistration";
 import { Ionicons } from "@expo/vector-icons";
-
+import Subscription from "../components/Pages/Subscription";
 export default function ScreenManager() {
   const [loading, setLoading] = useState(true);
   const { state, dispatch } = useGlobalState();
@@ -85,7 +87,7 @@ export default function ScreenManager() {
           name="MyExchanges"
           component={ConnectExchange}
           options={{
-            drawerLabel: "My Exchanges",
+            drawerLabel: "DCA Bot",
             drawerIcon: ({ size }) => (
               <Ionicons name="list-outline" size={size} color={"#ccc"} />
             ),
@@ -93,9 +95,9 @@ export default function ScreenManager() {
         />
         <Drawer.Screen
           name="SmartTrading"
-          component={ConnectExchange}
+          component={HODL}
           options={{
-            drawerLabel: "Smart Trading",
+            drawerLabel: "HODL Bot",
             drawerIcon: ({ size }) => (
               <Ionicons name="analytics-outline" size={size} color={"#ccc"} />
             ),
@@ -113,7 +115,7 @@ export default function ScreenManager() {
         />
         <Drawer.Screen
           name="Subscription"
-          component={ConnectExchange}
+          component={Subscription}
           options={{
             drawerLabel: "Subscription",
             drawerIcon: ({ size }) => (

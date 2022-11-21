@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as React from "react";
 import {
   FormControl,
@@ -19,6 +20,7 @@ import RowContainer from "../Containers/RowContainer";
 import PressableText from "../Texts/PressableText";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useGlobalState } from "../StateManagement/GlobalState";
+import { AsyncStorage } from "react-native";
 
 export default function Login({
   showRegistration,
@@ -50,6 +52,12 @@ export default function Login({
               if (!firestoreDocument.exists) {
                 // eslint-disable-next-line no-alert
                 alert("The user does not exist!");
+              }else{
+                AsyncStorage.setItem("userEmail", email).then(() => {
+                  AsyncStorage.setItem("userPassword", password).then(() => {
+
+                  })
+                })
               }
             })
             .catch((error) => {
@@ -64,6 +72,50 @@ export default function Login({
     }
   };
 
+  const tryLogin = () => {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((response) => {
+          const usersRef = firebase.firestore().collection("users");
+          usersRef
+            .doc(response.user?.uid)
+            .get()
+            .then((firestoreDocument) => {
+              if (!firestoreDocument.exists) {
+                // eslint-disable-next-line no-alert
+                alert("The user does not exist!");
+              }else{
+                AsyncStorage.setItem("userEmail", email).then(() => {
+                  AsyncStorage.setItem("userPassword", password).then(() => {
+
+                  })
+                })
+              }
+            })
+            .catch((error) => {
+              // eslint-disable-next-line no-alert
+              alert(error);
+            });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-alert
+          alert(error);
+        });
+    
+  };
+
+  React.useEffect(() => {
+    AsyncStorage.getItem("userEmail").then((userEmail) => {
+      if(userEmail !== null && userEmail !== undefined){
+        AsyncStorage.getItem("userPassword").then((userPassword) => {
+          setEmail(userEmail);
+          setPassword(userPassword);
+          return tryLogin();
+        })
+      }
+    })
+  }, [])
   const getErrorsByType = (type: string) =>
     errors.filter((e) => e.type === type);
   const { state } = useGlobalState();
@@ -92,6 +144,7 @@ export default function Login({
           }
           color="#fff"
           placeholder="Email"
+          value={email}
           height={12}
           fontSize={15}
           borderRadius={10}
@@ -137,6 +190,7 @@ export default function Login({
           }
           height={12}
           fontSize={15}
+          value={password}
           borderRadius={10}
           placeholder="* * * * * * * *"
           onChangeText={(text: string) => setPassword(text)}

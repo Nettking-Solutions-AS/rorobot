@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import Login from "../components/Pages/Login";
 import Registration from "../components/Pages/Registration";

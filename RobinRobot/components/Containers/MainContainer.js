@@ -5,8 +5,7 @@ import styled from "styled-components/native";
 import { colors } from "../colors";
 const { primary } = colors;
 
-const StyledView = styled.View`
-  flex: 1;
+const StyledView = styled.ScrollView`
   padding: 25px;
   padding-top: 75px;
   background-color: ${primary};

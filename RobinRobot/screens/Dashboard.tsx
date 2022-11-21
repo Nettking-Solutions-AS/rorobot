@@ -1,20 +1,25 @@
+//@ts-nocheck
 import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { Heading } from "native-base";
 
 export default function Dashboard() {
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: "column",
-      justifyContent: "center",
-      width: "100%",
-    },
-  });
+  
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Heading>Hallo, Aleksander!</Heading>
-    </SafeAreaView>
+    <>
+      <ScrollView>
+        <Heading>Hallo, Aleksander!</Heading>
+      </ScrollView>
+    </>
+    
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "100%",
+  },
+});
