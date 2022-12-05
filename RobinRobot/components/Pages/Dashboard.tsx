@@ -95,7 +95,7 @@ export default function Dashboard() {
     setLoadingStats(true);
 
     const { data: fetchedStats } = await axios.post<{ result: Stat[] }>(
-      `${config.serverURL}/getDailyStats`,
+      `${config.serverURL}//getDailyStats`,
       { 
         apiKey: state.currentUser.APIKey,
         apiSecret: state.currentUser.APISecret
@@ -107,7 +107,7 @@ export default function Dashboard() {
 
   const fetchCoins = useCallback(async () => {
     setLoading(true);
-    const uri = `${config.serverURL}/getCapitalConfigs`;
+    const uri = `${config.serverURL}//getCapitalConfigs`;
     const { data: response } = await axios.post<Data>(uri, {
       apiKey: state.currentUser.APIKey,
       apiSecret: state.currentUser.APISecret
@@ -158,11 +158,12 @@ export default function Dashboard() {
 
     fetch(`${config.serverURL}/getDailyStats`, requestOptions)
       .then(response => response.json())
-      .then(result => {
+      .then(result => { 
+        console.log("STATS", JSON.stringify(result))
         setDailyStat(result.result);
         AsyncStorage.setItem("dailyStat", JSON.stringify(result.result))
         setDailyStats(result.result);
-        console.log("STATS", JSON.stringify(result))
+        
         fetch(`${config.serverURL}/getBalance`, {
           method: 'POST',
           headers: myHeaders,
@@ -173,9 +174,10 @@ export default function Dashboard() {
           redirect: 'follow'
         })
         .then(response => response.json())
-        .then(result => {
-          var balances = result.balances;
+        .then(result => { 
           console.log("_Balances_", result)
+          var balances = result.balances;
+          
           setLoadings(null)
           setRenderStat(balances);
           AsyncStorage.setItem("balances", JSON.stringify(balances))
@@ -187,73 +189,66 @@ export default function Dashboard() {
       .catch(error => console.log('errorLogs', error));
   }
   useEffect(() => {
-    fetch(`${config.serverURL}/dcas`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      // alert(JSON.stringify(data))
-      setDcas(data)
-    })
-    AsyncStorage.getItem("dailyState").then((dStat) => {
-      if(dStat !== null && dStat !== undefined){
-        setDailyStat(JSON.parse(dStat));
-        AsyncStorage.getItem("balances").then(bals => {
-          setRenderStat(JSON.parse(bals));
-        })
-      }
-    })
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    // fetch(`${config.serverURL}/dcas`)
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data);
+    //   // alert(JSON.stringify(data))
+    //   setDcas(data)
+    // })
+   
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
     
-    var raw = JSON.stringify({
-      "apiKey": currentApiKey,
-      "apiSecret": currentApiSecret
-    });
+    // var raw = JSON.stringify({
+    //   "apiKey": currentApiKey,
+    //   "apiSecret": currentApiSecret
+    // });
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-    (async () => {
-      await fetchCoins();
-      await fetchDailyStats();
-    })();
+    // var requestOptions = {
+    //   method: 'POST',
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: 'follow'
+    // };
+    // (async () => {
+    //   await fetchCoins();
+    //   await fetchDailyStats();
+    // })();
 
 
 
 
     
 
-    fetch(`${config.serverURL}/getDailyStats`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        setDailyStat(result.result);
-        AsyncStorage.setItem("dailyStat", JSON.stringify(result.result))
-        // setDailyStats(result.result);
-        console.log(JSON.stringify(result))
-        fetch(`${config.serverURL}/getBalance`, {
-          method: 'POST',
-          headers: myHeaders,
-          body: JSON.stringify({
-            "apiKey": state.currentUser.APIKey,
-            "apiSecret": state.currentUser.APISecret
-          }),
-          redirect: 'follow'
-        })
-        .then(response => response.json())
-        .then(result => {
-          var balances = result.balances;
-          // console.log("_Balances_", balances)
-          setRenderStat(balances);
-          AsyncStorage.setItem("balances", JSON.stringify(balances))
-          // setDailyStats(result.result);
-          // console.log(JSON.stringify(result))
-        })
-        .catch(error => console.log('error', error));
-        })
-      .catch(error => console.log('error', error));
+    // fetch(`${config.serverURL}/getDailyStats`, requestOptions)
+    //   .then(response => response.json())
+    //   .then(result => {
+    //     setDailyStat(result.result);
+    //     AsyncStorage.setItem("dailyStat", JSON.stringify(result.result))
+    //     // setDailyStats(result.result);
+    //     console.log(JSON.stringify(result))
+    //     fetch(`${config.serverURL}/getBalance`, {
+    //       method: 'POST',
+    //       headers: myHeaders,
+    //       body: JSON.stringify({
+    //         "apiKey": state.currentUser.APIKey,
+    //         "apiSecret": state.currentUser.APISecret
+    //       }),
+    //       redirect: 'follow'
+    //     })
+    //     .then(response => response.json())
+    //     .then(result => {
+    //       var balances = result.balances;
+    //       // console.log("_Balances_", balances)
+    //       // setRenderStat(balances);
+    //       AsyncStorage.setItem("balances", JSON.stringify(balances))
+    //       // setDailyStats(result.result);
+    //       // console.log(JSON.stringify(result))
+    //     })
+    //     .catch(error => console.log('error', error));
+    //     })
+    //   .catch(error => console.log('error', error));
  
     
 
@@ -278,6 +273,7 @@ export default function Dashboard() {
       .then(response => response.json())
       .then(result => {setIsSet(true);
           setUserDoc(result);
+          // alert(JSON.stringify(result))
       })
       .catch(error => {
 
