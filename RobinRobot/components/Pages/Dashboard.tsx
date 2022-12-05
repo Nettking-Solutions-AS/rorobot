@@ -1,12 +1,13 @@
 //@ts-nocheck
 import axios from "axios";
 import React, { useState, useEffect, useCallback } from "react";
-import { ScrollView, StyleSheet, View, ActivityIndicator, Image, AsyncStorage } from "react-native";
+import { ScrollView, StyleSheet, View, ActivityIndicator, Image, AsyncStorage, Alert } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
 import { Octicons } from "@expo/vector-icons";
 import { Text, HStack, Center, Box } from "native-base";
 import { useGlobalState } from "../StateManagement/GlobalState";
 import { Coin, Stat } from "../../lib/Types";
+import { db, auth } from "../../firebase/Config";
 import BigText from "../../components/Texts/BigText";
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -23,8 +24,12 @@ export default function Dashboard() {
   const { state } = useGlobalState();
   const [coins, setCoins] = useState<CoinWithAmount[]>([]);
   const [loadingCoins, setLoading] = useState(false);
+  const [loading, setLoadings] = useState(false);
   const [renderStats, setRenderStat] = useState([]);
   const [isSet, setIsSet] = useState(false);
+  const [currentApiKey, setCurrentApiKey] = useState("");
+  const [currentApiSecret, setCurrentApiSecret] = useState("");
+  const [dcas, setDcas] = useState([]);
   const [dailyStat, setDailyStat] = useState([]);
   const [userDoc, setUserDoc] = useState([])
   const [sortType, setSortType] = useState<"ascending" | "descending">(
@@ -131,9 +136,64 @@ export default function Dashboard() {
       )
     );
   }, [sortType, coins]);
+  const getList = (key_, sec_) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      "apiKey": key_,
+      "apiSecret": sec_
+    });
 
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+
+
+
+    
+
+    fetch(`${config.serverURL}/getDailyStats`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setDailyStat(result.result);
+        AsyncStorage.setItem("dailyStat", JSON.stringify(result.result))
+        setDailyStats(result.result);
+        console.log("STATS", JSON.stringify(result))
+        fetch(`${config.serverURL}/getBalance`, {
+          method: 'POST',
+          headers: myHeaders,
+          body: JSON.stringify({
+            "apiKey": key_,
+            "apiSecret": sec_
+          }),
+          redirect: 'follow'
+        })
+        .then(response => response.json())
+        .then(result => {
+          var balances = result.balances;
+          console.log("_Balances_", result)
+          setLoadings(null)
+          setRenderStat(balances);
+          AsyncStorage.setItem("balances", JSON.stringify(balances))
+          // setDailyStats(result.result);
+          // console.log(JSON.stringify(result))
+        })
+        .catch(error => console.log('errorLog', error));
+        })
+      .catch(error => console.log('errorLogs', error));
+  }
   useEffect(() => {
-
+    fetch(`${config.serverURL}/dcas`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      // alert(JSON.stringify(data))
+      setDcas(data)
+    })
     AsyncStorage.getItem("dailyState").then((dStat) => {
       if(dStat !== null && dStat !== undefined){
         setDailyStat(JSON.parse(dStat));
@@ -146,8 +206,8 @@ export default function Dashboard() {
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
-      "apiKey": "vpLbnPagUT7y6SzwI9EvlYVn21AyEUwGztrn412321Gpg05w6x0PDyJIC7HcZLf6",
-      "apiSecret": "rd4F3mucspttMTEYZ6ZbOdIEfUF6qhdbXqME59DUcfDtMCmBn0QAOPadeCAXl0ZN"
+      "apiKey": currentApiKey,
+      "apiSecret": currentApiSecret
     });
 
     var requestOptions = {
@@ -177,8 +237,8 @@ export default function Dashboard() {
           method: 'POST',
           headers: myHeaders,
           body: JSON.stringify({
-            "apiKey": "vpLbnPagUT7y6SzwI9EvlYVn21AyEUwGztrn412321Gpg05w6x0PDyJIC7HcZLf6",
-            "apiSecret": "rd4F3mucspttMTEYZ6ZbOdIEfUF6qhdbXqME59DUcfDtMCmBn0QAOPadeCAXl0ZN"
+            "apiKey": state.currentUser.APIKey,
+            "apiSecret": state.currentUser.APISecret
           }),
           redirect: 'follow'
         })
@@ -259,6 +319,73 @@ export default function Dashboard() {
         </Box> */}
         
         <Box style={styles.containerBackground}>
+          {/* <ScrollView horizontal={true} style={{flexDirection: "row", flexWrap: "nowrap"}}>
+          { 
+              dcas.map((obj, index) => {
+                if(obj.body.userID !== auth.currentUser.uid){
+                  return null
+                }
+                return(
+                  <View style={{flexDirection: "row", width: 300, padding: 10, marginVertical: 10, borderWidth: 0.2, justifyContent: "space-between", marginRight: 10, borderColor: "#c4c5c6", borderRadius: 10}}>
+                    <TouchableOpacity style={{width: "100%", justifyContent: "center",}}>
+                      <View style={{flexDirection: "row"}}>
+                      <View style={{width: "70%"}}>
+                        <Text style={{color: "#fff", fontWeight: "bold"}}>
+                          API Key - {index + 1}
+                        </Text>
+                        <Text style={{color: "#fff", fontWeight: "bold"}}>
+                          Amount: {obj.body.amount} {obj.body.asset}
+                        </Text>
+                        <Text style={{color: "#fff", fontWeight: "bold"}}>
+                          Asset: {obj.body.asset}
+                        </Text>
+                      </View>
+                      <View style={{width: "30%", justifyContent: "center"}}>
+                        <View style={{backgroundColor: obj.body.status === "pending" ? "orange" : "green", padding: 10, borderRadius: 5}}>
+                          <Text style={{color: "#fff", fontWeight: "bold", alignSelf: "center"}}>
+                            {obj.body.status}
+                          </Text>
+                        </View>
+                      </View>
+                      </View>
+                      </TouchableOpacity>
+                  </View>
+                )
+              })
+          }
+          </ScrollView> */}
+          <ScrollView horizontal={true}>
+            {
+              userDoc.map((obj, index) => {
+                if(obj.userID !== auth.currentUser.uid){
+                  return null
+                }
+                return(
+                  <TouchableOpacity onPress={() => {
+                    setLoadings(<ActivityIndicator size="large" />)
+                    setCurrentApiKey(obj.APIKey);
+                    setCurrentApiSecret(obj.APISecret);
+                    return getList(obj.APIKey, obj.APISecret);
+                  }}>
+                <View key={index} style={{flexDirection: "row", width: 300, borderRadius: 20, marginVertical: 10, marginHorizontal: 10, alignSelf: "center", padding: 20, borderWidth: 1, borderColor: "#c4c5c650"}}>
+                  <View style={{width: "20%", justifyContent: "center"}}>
+                    <Image style={{height: 40, width: 40}} source={{uri: obj.Exchange === "Binance" ? "https://seeklogo.com/images/B/binance-coin-bnb-logo-CD94CC6D31-seeklogo.com.png" : ""}} />
+                  </View>
+                  <View style={{width: "60%", justifyContent: "center"}}>
+                    <Text style={{color: "#fff", fontSize: 16, fontWeight: "900"}}>{obj.ExchangeName}</Text>
+                    <Text style={{color: "#fff", fontSize: 12, fontWeight: "900"}}>API Key: {obj.APIKey.substring(0, 10)}...</Text>
+                  </View>
+                  <View style={{width: "20%", justifyContent: "center"}}>
+                    {/* <TouchableOpacity>
+                      <MaterialCommunityIcons name="close" style={{alignSelf: "flex-end"}} size={24} color="#fff" />
+                    </TouchableOpacity> */}
+                  </View>
+                </View>
+                </TouchableOpacity>
+                );
+              })
+            }
+            </ScrollView>
         <ScrollView style={{height: 500}}>
         {
           renderStats.length > 0 ?
@@ -296,8 +423,10 @@ export default function Dashboard() {
           })
           :
           <>
-            <ActivityIndicator size="large" />
-          </>
+            {loading}
+              <Text style={{alignSelf: "center", color: "#fff", fontSize: 14, fontWeight: "900"}}>No Data to fetch</Text>
+              <Text style={{alignSelf: "center", color: "#fff", fontSize: 12, fontWeight: "900"}}>Try clicking your connected account above</Text>
+            </>
         }
         <View style={{height: 20}} />
         </ScrollView>
@@ -308,7 +437,8 @@ export default function Dashboard() {
         {
           userDoc.length <= 0 ? 
             <>
-              <ActivityIndicator size="small" />
+              <Text style={{alignSelf: "center", color: "#fff", fontSize: 14, fontWeight: "900"}}>No Data to fetch</Text>
+              {/* <Text style={{alignSelf: "center", color: "#fff", fontSize: 12, fontWeight: "900"}}>Try clicking your connected account above</Text> */}
             </>
           :
           <>
@@ -318,6 +448,9 @@ export default function Dashboard() {
             <ScrollView horizontal={true}>
             {
               userDoc.map((obj, index) => {
+                if(obj.userID !== auth.currentUser.uid){
+                  return null
+                }
                 return(
                 <View key={index} style={{flexDirection: "row", width: 300, borderRadius: 20, marginVertical: 10, marginHorizontal: 10, alignSelf: "center", padding: 20, borderWidth: 1, borderColor: "#c4c5c650"}}>
                   <View style={{width: "20%", justifyContent: "center"}}>
@@ -328,7 +461,16 @@ export default function Dashboard() {
                     <Text style={{color: "#fff", fontSize: 12, fontWeight: "900"}}>API Key: {obj.APIKey.substring(0, 10)}...</Text>
                   </View>
                   <View style={{width: "20%", justifyContent: "center"}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                      db.collection("connects").where("APIKey", "==", obj.APIKey)
+                      .get()
+                      .then((querySnapshot) => {
+                        querySnapshot.forEach(doc=>{
+                          doc.ref.delete()
+                        })
+                        Alert.alert("Success", "Deletec Successfully")
+                      })
+                    }}>
                       <MaterialCommunityIcons name="close" style={{alignSelf: "flex-end"}} size={24} color="#fff" />
                     </TouchableOpacity>
                   </View>

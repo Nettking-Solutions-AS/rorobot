@@ -282,6 +282,9 @@ useEffect(() => {
             <ScrollView horizontal={true}>
             {
               userDoc.map((obj, index) => {
+                if(obj.userID !== auth.currentUser.uid){
+                  return null
+                }
                 return(
                 <View key={index} style={{flexDirection: "row", width: 330, borderRadius: 20, marginVertical: 10, marginHorizontal: 10, alignSelf: "center", padding: 20, borderWidth: 1, borderColor: "#c4c5c650"}}>
                   <View style={{width: "20%", justifyContent: "center"}}>

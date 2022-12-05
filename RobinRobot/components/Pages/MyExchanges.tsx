@@ -438,6 +438,9 @@ const ConnectExchange = ({
             <ScrollView horizontal={true}>
             {
               userDoc.map((obj, index) => {
+                if(obj.userID !== auth.currentUser.uid){
+                  return null
+                }
                 return(
                 <View key={index} style={{flexDirection: "row", width: 330, borderRadius: 20, marginVertical: 10, marginHorizontal: 10, alignSelf: "center", padding: 20, borderWidth: 1, borderColor: "#c4c5c650"}}>
                   <View style={{width: "20%", justifyContent: "center"}}>
@@ -448,7 +451,16 @@ const ConnectExchange = ({
                     <Text style={{color: "#fff", fontSize: 12, fontWeight: "900"}}>API Key: {obj.APIKey}</Text>
                   </View>
                   <View style={{width: "20%", justifyContent: "center"}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                      db.collection("connects").where("APIKey", "==", obj.APIKey)
+                      .get()
+                      .then((querySnapshot) => {
+                        querySnapshot.forEach(doc=>{
+                          doc.ref.delete()
+                        })
+                        Alert.alert("Success", "Deletec Successfully")
+                      })
+                    }}>
                       <MaterialCommunityIcons name="close" style={{alignSelf: "flex-end"}} size={24} color="#fff" />
                     </TouchableOpacity>
                   </View>
