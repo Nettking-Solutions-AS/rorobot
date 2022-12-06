@@ -7,7 +7,7 @@ const { primary } = colors;
 
 const StyledView = styled.ScrollView`
   padding: 25px;
-  padding-top: 75px;
+  padding-top: 25px;
   background-color: ${primary};
 `;
 

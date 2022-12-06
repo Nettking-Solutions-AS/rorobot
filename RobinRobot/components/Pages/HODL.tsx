@@ -450,9 +450,9 @@ const HODLBot = ({
               </>
               :
               <>
-                <View style={{flexDirection: "row", width: "95%", padding: 10, marginVertical: 10, borderWidth: 0.2, borderColor: "#c4c5c6", borderRadius: 10}}>
+                <View style={{flexDirection: "row", width: "95%", padding: 10, marginVertical: 10, borderWidth: 0.2, borderColor: "#c4c5c6", borderRadius: 10, marginTop: 35}}>
                   <View style={{width: "60%", justifyContent: "center"}}>
-                    <BigText style={{fontWeight: "bold" }}>
+                    <BigText style={{fontWeight: "bold"}}>
                       Active Bots
                     </BigText>
                   </View>

@@ -471,7 +471,7 @@ const ConnectExchange = ({
             </ScrollView>
             <TouchableOpacity onPress={() => {
               setAddNewModal(true);
-            }} style={{alignSelf: "center", padding: 10, borderRadius: 30, borderWidth: 0.2, borderColor: "#f0f0f0", marginVertical: 15}}>
+            }} style={{alignSelf: "center", padding: 10, borderRadius: 30, borderWidth: 0.2, borderColor: "#f0f0f0", marginVertical: 15, marginTop: 35}}>
               <Text style={{color: "#fff", fontSize: 16, fontWeight: "bold"}}>Connect Another Account</Text>
             </TouchableOpacity>
             <DCABot />

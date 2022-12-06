@@ -122,7 +122,7 @@ export default function Login({
 
   return (
     <MainContainer>
-      <RegularText style={{ marginBottom: 25 }}>
+      <RegularText style={{ marginBottom: 25, marginTop: 25 }}>
         Fill in your account credentials
       </RegularText>
 

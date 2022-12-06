@@ -363,7 +363,7 @@ const DSABot = ({
                  
                 </View>
                 <ConnectButton onPress={onExchangePress}>{activateBtn}</ConnectButton>
-                <ConnectButton onPress={() => {setNewDCA(false)}}>Cancel</ConnectButton>
+                {/*<ConnectButton onPress={() => {setNewDCA(false)}}>Cancel</ConnectButton>*/}
             </CardSection>
             </CardView>
             </View>
