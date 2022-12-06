@@ -1,5 +1,5 @@
 const config = {
-    serverURL: "https://robinserver.vercel.app/"
+    serverURL: "https://robinserver.vercel.app"
 }
 //https://robinserver.onrender.com/
 export default config; 
