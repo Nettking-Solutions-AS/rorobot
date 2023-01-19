@@ -2,6 +2,10 @@ import React from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { Heading } from "native-base";
 
+/**
+ * Dashboard component that displays a greeting to the user
+ * @returns {JSX.Element} - rendered component
+ */
 export default function Dashboard() {
   const styles = StyleSheet.create({
     container: {
