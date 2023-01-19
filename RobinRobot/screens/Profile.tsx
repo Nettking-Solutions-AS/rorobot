@@ -4,9 +4,15 @@ import { StyleSheet, SafeAreaView } from "react-native";
 import firebase from "../firebase/config";
 import { useGlobalState } from "../components/StateManagement/GlobalState";
 
+/**
+ * Profile component, displays the user's name and email address, and has a button to log out.
+ */
 export default function Profile() {
   const { state, dispatch } = useGlobalState();
 
+  /**
+   * Logs out the user by signing out of firebase and setting the current user state to null
+   */
   const logout = () => {
     firebase
       .auth()
