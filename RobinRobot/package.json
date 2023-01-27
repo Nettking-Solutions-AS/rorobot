@@ -26,7 +26,7 @@
     "@types/react-table": "^7.7.12",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "axios": "^1.1.3",
+    "axios": "^1.2.5",
     "eslint": "^8.16.0",
     "expo": "~46.0.16",
     "expo-cli": "^6.0.8",
